@@ -2,6 +2,7 @@ package vn.quangkhongbiet.shopping.domain;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "products")
@@ -17,13 +21,34 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @NotEmpty(message = "DetailDesc không được để trống!")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
+
+    @NotNull()
+    @NotEmpty(message = "Factory không được để trống!")
     private String factory;
+
     private String image;
+
+    @NotNull
+    @NotEmpty(message = "Name không được để trống!")
     private String name;
+
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Price phải lớn hơn 0!")
     private long price;
+
+    @NotNull()
+    @DecimalMin(value = "0", inclusive = false, message = "Quantity phải lớn hơn 0!")
     private long quantity;
+
+    @NotNull
+    @NotEmpty(message = "ShortDetail không được để trống!")
     private String shortDesc;
+    
     private long sold;
     private String target;
     private String size;

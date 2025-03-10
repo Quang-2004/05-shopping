@@ -11,6 +11,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -18,12 +22,26 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String address;
+
     private String avatar;
-    private String email;
-    private String fullName;
-    private String password;
+
+    @Size(min=0,max=10, message = "Số điện thoại không hợp lệ!")
+    @Pattern(regexp = "^$|^\\d{10}$", message = "Số điện thoại không hợp lệ!")
     private String phoneNumber;
+
+    private String sex;
+
+    @Email(message = "Email không hợp lệ!", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    private String email;
+
+    @NotNull
+    @Size(min = 3, message = "Fullname phải có ít nhất 3 ký tự!")
+    private String fullName;
+
+    @NotNull
+    @Size(min = 2, message = "Password phaỉ có tối thiểu 2 ký tự!")
+    private String password;
+    
     // role id
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -41,20 +59,27 @@ public class User {
     public User() {
     }
 
-    public User(long id, String address, String avatar, String email, String fullName, String password,
-            String phoneNumber, Role role, List<Address> addresses, Cart cart, List<Order> orders) {
+    public User(long id, String avatar,
+            @Size(min = 0, max = 10, message = "Số điện thoại không hợp lệ!") @Pattern(regexp = "^$|^\\d{10}$", message = "Số điện thoại không hợp lệ!") String phoneNumber,
+            String sex,
+            @Email(message = "Email không hợp lệ!", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$") String email,
+            @NotNull @Size(min = 3, message = "Fullname phải có ít nhất 3 ký tự!") String fullName,
+            @NotNull @Size(min = 2, message = "Password phaỉ có tối thiểu 2 ký tự!") String password, Role role,
+            List<Address> addresses, Cart cart, List<Order> orders) {
         this.id = id;
-        this.address = address;
         this.avatar = avatar;
+        this.phoneNumber = phoneNumber;
+        this.sex = sex;
         this.email = email;
         this.fullName = fullName;
         this.password = password;
-        this.phoneNumber = phoneNumber;
         this.role = role;
         this.addresses = addresses;
         this.cart = cart;
         this.orders = orders;
     }
+
+
 
     public long getId() {
         return id;
@@ -62,14 +87,6 @@ public class User {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getAvatar() {
@@ -104,14 +121,6 @@ public class User {
         this.password = password;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public Role getRole() {
         return role;
     }
@@ -144,6 +153,27 @@ public class User {
         this.orders = orders;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+
+
+    public String getSex() {
+        return sex;
+    }
+
+
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    
     
     
 }
