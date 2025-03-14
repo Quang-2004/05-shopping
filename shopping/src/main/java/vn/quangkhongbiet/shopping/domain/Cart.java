@@ -3,6 +3,7 @@ package vn.quangkhongbiet.shopping.domain;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,11 +21,12 @@ public class Cart {
     private long sum;
 
     // userId
+    // default is EAGER with OneToOne
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart")
     private List<CartDetail> cartDetails;
 
     public Cart() {

@@ -94,7 +94,7 @@
                                       </div>
                                 </div>
                             
-                                <!-- <div class="mb-3 col-6">
+                                <div class="mb-3 col-6">
                                     <label for="avatarFile" class="form-label">Avatar: </label>
                                     <input type="file" class="form-control" id="avatarFile" name="avatarPreview" 
                                         accept=".png, .jpg, .jpeg"/>	
@@ -114,7 +114,7 @@
                                              alt="Avatar Image">
                                         </c:if>
                                     </div>
-                                </div> -->
+                                </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </form:form>
                         </div>

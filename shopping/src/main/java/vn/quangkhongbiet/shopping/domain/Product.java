@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -51,19 +52,26 @@ public class Product {
     
     private long sold;
     private String target;
+
+    
+    @NotEmpty(message = "Size không được để trống!")
     private String size;
+
+    @NotNull
+    @NotEmpty(message = "Color không được để trống!")
     private String color;
+
     private long totalReview;
 
     // categoryId
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<ImageDetail> ImageDetails;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Review> reviews;
 
     public Product() {

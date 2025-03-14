@@ -1,6 +1,7 @@
 package vn.quangkhongbiet.shopping.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,12 +19,12 @@ public class CartDetail {
     private long quantity;
 
     // cartId
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
     // productId qh 1 chieu
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
 

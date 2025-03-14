@@ -3,6 +3,7 @@ package vn.quangkhongbiet.shopping.domain;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,12 +24,12 @@ public class Order {
     private String status;
 
     // userId
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
     // productId
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
     // address id

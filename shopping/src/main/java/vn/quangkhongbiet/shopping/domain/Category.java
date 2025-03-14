@@ -3,6 +3,7 @@ package vn.quangkhongbiet.shopping.domain;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +19,7 @@ public class Category {
     private String name;
     private String content;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
     private List<Product> products;
 
 

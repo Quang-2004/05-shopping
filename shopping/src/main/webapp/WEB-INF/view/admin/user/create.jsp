@@ -93,18 +93,18 @@
                                 
                                 <div class="row">
                                     
-                                    <!-- <div class="mb-3 col-6">
+                                    <div class="mb-3 col-6">
                                         <label for="avatarFile" class="form-label">Avatar: </label>
                                         <input type="file" class="form-control" id="avatarFile" name="hoidanitFile" 
                                             accept=".png, .jpg, .jpeg"/>	
-                                    </div> -->
+                                    </div>
                                 </div>
-                                <!-- <div class="row">
+                                <div class="row">
                                     <div class="col-6">
                                         <img style="max-height: 250px; display: none;" alt="avatar preview"
                                             id="avatarPreview">
                                     </div>
-                                </div> -->
+                                </div>
                                 
                             
                                 <div class="row">
