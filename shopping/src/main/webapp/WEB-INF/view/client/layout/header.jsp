@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  
+
         <div class="container-fluid fixed-top ">
             <div class="container-fluid">
 
@@ -69,60 +69,72 @@
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="/" class="nav-item nav-link active">Trang chủ</a>
-                                    <a href="shop.html" class="nav-item nav-link">Sản phẩm</a>
+                                    <a href="" class="nav-item nav-link">Sản phẩm</a>
                                     <div class="nav-item dropdown">
                                     </div>
                                     <div class="navbar-nav py-lg-0 d-flex m-3 me-0">
-                                        <div class="btn px-0">
-                                            <div class="dropdown my-auto">
-
-                                                <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
-                                                    data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="dropdown"
-                                                    aria-expanded="false">
-                                                    <i class="fas fa-user fa-1.5x"></i>
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-menu-end p-4" aria- labelledby="dropdownMenuLink">
-            
-                                                    <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
-            
-                                                        <c:if test="${not empty sessionScope.avatar}">
-                                                            <img style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;"
-                                                                src="/images/avatar/${sessionScope.avatar}" />
-                                                        </c:if>
-                                                        <c:if test="${empty sessionScope.avatar}">
-                                                            <img style="width: 120px; height: 120px; border-radius: 50%; overflow: hidden;"
-                                                                src="/images/avatar/defaut-avatar.jpg" />
-                                                        </c:if>
-            
-                                                        <div class="text-center my-3">
-                                                            <c:out value="${sessionScope.fullName}" />
-                                                        </div>
-            
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="/account/my-profile">Tài khoản của tôi</a>
-                                                    </li>
-                                                    <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
-                                                    <li>
-                                                        <hr class="dropdown-divider">
-                                                    </li>
-                                                    <li>
-                                                        <form method="post" action="/logout">
-                                                            <input type="hidden" name="${_csrf.parameterName}"
-                                                                value="${_csrf.token}" />
-                                                            <button class="dropdown-item">Đăng xuất</button>
-                                                        </form>
-                                                    </li>
-                                                </ul>
-            
+                                        <c:if test="${not empty sessionScope.email}">
+                                            <div class="btn px-0">
+                                                <div class="dropdown my-auto">
+    
+                                                    <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
+                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-user fa-x"></i>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end p-4" aria-
+                                                        labelledby="dropdownMenuLink">
+                                                        <li class="d-flex align-items-center flex-column"
+                                                            style="min-width: 300px;">
+    
+                                                            <c:if test="${not empty sessionScope.avatar}">
+                                                                <img style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;"
+                                                                    src="/images/avatar/${sessionScope.avatar}" />
+                                                            </c:if>
+                                                            <c:if test="${empty sessionScope.avatar}">
+                                                                <img style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;"
+                                                                    src="/images/avatar/defaut-avatar.jpg" />
+                                                            </c:if>
+    
+                                                            <div class="text-center my-3">
+                                                                <c:out value="${sessionScope.fullName}" />
+                                                            </div>
+    
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="/account/my-profile">Tài khoản
+                                                                của tôi</a>
+                                                        </li>
+                                                        <li><a class="dropdown-item" href="/order-history">Lịch sử mua
+                                                                hàng</a></li>
+                                                        <li>
+                                                            <hr class="dropdown-divider">
+                                                        </li>
+                                                        <li>
+                                                            <form method="post" action="/logout">
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                    value="${_csrf.token}" />
+                                                                <button class="dropdown-item">Đăng xuất</button>
+                                                            </form>
+                                                        </li>
+                                                    </ul>
+    
+                                                </div>
                                             </div>
-                                        </div>
-                                        <a href="" class="btn px-0 ml-3">
-                                            <i class="fas fa-shopping-cart text-primary"></i>
-                                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                                        </a>
+                                            <a href="/cart" class="btn px-0 ml-3">
+                                                <i class="fas fa-shopping-cart text-primary"></i>
+                                                <span class="badge text-secondary border border-secondary rounded-circle"
+                                                    style="padding-bottom: 2px;">${sessionScope.sum}</span>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${empty sessionScope.email}">
+                                            
+                                            <a class="mr-2" href="/login">Đăng nhập</a> <p> | </p> <a class="ml-2" href="/register">Đăng ký</a>
+
+                                        </c:if>
+                                        
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </nav>
                     </div>

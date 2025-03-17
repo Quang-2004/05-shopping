@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import vn.quangkhongbiet.shopping.domain.User;
+import vn.quangkhongbiet.shopping.domain.DTO.RegisterDTO;
 import vn.quangkhongbiet.shopping.repository.UserRepository;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
-
+    
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -38,5 +39,13 @@ public class UserService {
 
     public boolean checkEmailExist(String email){
         return this.userRepository.existsByEmail(email);
+    }
+
+    public User registerDTOtoUser(RegisterDTO registerDTO){ 
+        User user = new User();
+        user.setFullName(registerDTO.getFirstName() + registerDTO.getLastName());
+        user.setEmail(registerDTO.getEmail());
+        user.setPassword(registerDTO.getPassword());
+        return user;
     }
 }

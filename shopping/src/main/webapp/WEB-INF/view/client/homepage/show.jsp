@@ -27,17 +27,14 @@
             <!-- Customized Bootstrap Stylesheet -->
             <link href="/client/css/style.css" rel="stylesheet">
 
-            <!-- Customized Bootstrap Stylesheet -->
-            <link href="/client/css/bootstrap.min.css" rel="stylesheet">
-            
         </head>
 
         <body>
 
 
-            <!-- Navbar Start -->
+            <!-- Header Start -->
             <jsp:include page="../layout/header.jsp" />
-            <!-- Navbar End -->
+            <!-- Header End -->
 
 
             <!-- Carousel Start -->
@@ -350,6 +347,8 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
             <script src="/client/lib/easing/easing.min.js"></script>
             <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
             <!-- Contact Javascript File -->
             <script src="/client/mail/jqBootstrapValidation.min.js"></script>
@@ -364,18 +363,18 @@
                 // Toggle dropdown menu khi click
                 const avatar = document.querySelector('.starlitCircle');
                 const dropdownMenu = document.querySelector('#dropdownMenu');
-            
+
                 avatar.addEventListener('click', () => {
-                  dropdownMenu.classList.toggle('active');
+                    dropdownMenu.classList.toggle('active');
                 });
-            
+
                 // Đóng dropdown khi click ra ngoài
                 document.addEventListener('click', (e) => {
-                  if (!avatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                    dropdownMenu.classList.remove('active');
-                  }
+                    if (!avatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('active');
+                    }
                 });
-              </script>
+            </script>
         </body>
 
         </html>
