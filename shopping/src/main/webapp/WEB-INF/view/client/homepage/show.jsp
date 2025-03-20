@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -181,110 +182,6 @@
                             </div>
                         </a>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-4.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-3.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-2.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-1.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-2.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-1.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-4.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="">
-                            <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="/client/img/cat-3.jpg" alt="">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>Category Name</h6>
-                                    <small class="text-body">100 Products</small>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
             <!-- Categories End -->
@@ -307,8 +204,8 @@
                                 <div class="text-center py-4">
                                     <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
                                     <div class="d-flex align-items-center justify-content-center mt-2">
-                                        <h5>${product.price} Đ</h5>
-                                        <h6 class="text-muted ml-2"><del>${product.price} Đ</del></h6>
+                                        <h5><fmt:formatNumber type="number" value="${product.price}" /> đ</h5>
+                                        <h6 class="text-muted ml-2"><del><fmt:formatNumber type="number" value="${product.price}" /> đ</del></h6>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-center mb-1">
                                         <small class="fa fa-star text-primary mr-1"></small>

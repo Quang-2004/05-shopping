@@ -15,7 +15,7 @@
                     <div class="col-lg-4 col-6 text-left">
                         <form action="">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search for products">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm...">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-transparent text-primary">
                                         <i class="fa fa-search"></i>
@@ -38,21 +38,9 @@
                         <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light"
                             id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                             <div class="navbar-nav w-100">
-                                <div class="nav-item dropdown dropright">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Váy <i
-                                            class="fa fa-angle-right float-right mt-1"></i></a>
-                                    <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                        <a href="" class="dropdown-item">Váy phụ nữ</a>
-                                        <a href="" class="dropdown-item">Váy trẻ em</a>
-                                    </div>
-                                </div>
-                                <a href="" class="nav-item nav-link">Áo sơ mi</a>
-                                <a href="" class="nav-item nav-link">Quần Jean</a>
-                                <a href="" class="nav-item nav-link">Đồ bơi</a>
-                                <a href="" class="nav-item nav-link">Đồ ngủ</a>
-                                <a href="" class="nav-item nav-link">Đồ thể thao</a>
-                                <a href="" class="nav-item nav-link">Áo khoác</a>
-                                <a href="" class="nav-item nav-link">Giày</a>
+                                <c:forEach items="${categories}" var="category">
+                                    <a href="" class="nav-item nav-link">${category.content}</a>
+                                </c:forEach>
                             </div>
                         </nav>
                     </div>
@@ -85,7 +73,7 @@
                                                     <ul class="dropdown-menu dropdown-menu-end p-4" aria-
                                                         labelledby="dropdownMenuLink">
                                                         <li class="d-flex align-items-center flex-column"
-                                                            style="min-width: 300px;">
+                                                            style="min-width: 130px;">
     
                                                             <c:if test="${not empty sessionScope.avatar}">
                                                                 <img style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;"

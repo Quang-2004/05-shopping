@@ -1,23 +1,28 @@
 package vn.quangkhongbiet.shopping.controller.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Cart;
 import vn.quangkhongbiet.shopping.domain.CartDetail;
 import vn.quangkhongbiet.shopping.domain.ImageDetail;
 import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.domain.User;
+import vn.quangkhongbiet.shopping.service.AddressService;
 import vn.quangkhongbiet.shopping.service.CartDetailService;
 import vn.quangkhongbiet.shopping.service.CartService;
 import vn.quangkhongbiet.shopping.service.ImageDetailService;
+import vn.quangkhongbiet.shopping.service.OrderService;
 import vn.quangkhongbiet.shopping.service.ProductService;
 import vn.quangkhongbiet.shopping.service.UserService;
 
@@ -25,25 +30,31 @@ import vn.quangkhongbiet.shopping.service.UserService;
 @Controller
 public class ItemController {
 
+
     private final ProductService productService;
     private final ImageDetailService imageDetailService;
     private final UserService userService;
     private final CartService cartService;
     private final CartDetailService cartDetailService;
+    private final AddressService addressService;
+    private final OrderService orderService;
 
     public ItemController(
-        ProductService productService, 
-        ImageDetailService imageDetailService,
-        UserService userService,
-        CartService cartService,
-        CartDetailService cartDetailService) {
-
+            ProductService productService,
+            ImageDetailService imageDetailService,
+            UserService userService,
+            CartService cartService,
+            CartDetailService cartDetailService,
+            AddressService addressService,
+            OrderService orderService) {
 
         this.productService = productService;
         this.imageDetailService = imageDetailService;
         this.userService = userService;
         this.cartService = cartService;
         this.cartDetailService = cartDetailService;
+        this.addressService = addressService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/product/{id}")
@@ -54,15 +65,14 @@ public class ItemController {
         model.addAttribute("product", product);
         model.addAttribute("imageDetails", imageDetails);
         return "client/product/detail";
-        
+
     }
 
-    
-    @PostMapping("/add-product-to-cart/{id}")
+    @GetMapping("/add-product-to-cart/{id}")
     public String handleAddProduct(
-        @PathVariable long id,
-        HttpServletRequest request) {
-        
+            @PathVariable long id,
+            HttpServletRequest request) {
+
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
 
@@ -70,35 +80,81 @@ public class ItemController {
         return "redirect:/";
     }
 
-
     @GetMapping("/cart")
     public String getCartPage(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         User currentUser = this.userService.findByEmail(email);
         Cart cart = this.cartService.findByUser(currentUser);
-        
+
         List<CartDetail> cartDetails = this.cartDetailService.findByCart(cart);
+        double totalPrice = 0;
+        for (CartDetail cartDetail : cartDetails) {
+            totalPrice += (cartDetail.getPrice() * cartDetail.getQuantity());
+        }
         model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("cart", cart);
+
         return "client/cart/show";
     }
 
-    @PostMapping("/confilm-checkout")
-    public String getCheckOutPage() {
-        
-        
+    @PostMapping("/confirm-checkout")
+    public String getCheckOutPage(@ModelAttribute("cart") Cart cart, HttpServletRequest request) {
+        List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
+        this.cartService.handleUpdateCartBeforeCheckout(cartDetails);
+
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User currentUser = this.userService.findByEmail(email);
+
+        List<Address> addresses = this.addressService.findByUser(currentUser);
+        if (addresses == null || addresses.isEmpty()){ 
+            session.setAttribute("redirectTo", "/checkout");
+            return "redirect:/account/add-address";
+        }
+            
         return "redirect:/checkout";
     }
-    
+
     @GetMapping("/checkout")
-    public String getCheckoutPage() {
-        //TODO: process POST request
-        
+    public String getCheckoutPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User currentUser = this.userService.findByEmail(email);
+        Cart cart = this.cartService.findByUser(currentUser);
+
+        List<CartDetail> cartDetails = this.cartDetailService.findByCart(cart);
+        double totalPrice = 0;
+        for (CartDetail cartDetail : cartDetails) {
+            totalPrice += (cartDetail.getPrice() * cartDetail.getQuantity());
+        }
+
+        if (!this.addressService.existsByUser(currentUser)) {
+            return "redirect:/account/add-address";
+        }
+        Address address = this.addressService.findByDefaultAddressAndUser(true, currentUser);
+        model.addAttribute("cartDetails", cartDetails);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("address", address);
+
         return "client/cart/checkout";
     }
-    
-    
-    
-    
-   
+
+    @GetMapping("/place-order")
+    public String handlePlaceOrder(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User currentUser = this.userService.findByEmail(email);
+
+        List<Address> addresses = this.addressService.findByUser(currentUser);
+        if (addresses == null || addresses.isEmpty()) {
+            return "redirect:/account/add-address";
+        }
+
+        this.orderService.handleSaveOrder(session, this.addressService.findByDefaultAddressAndUser(true, currentUser));
+
+        return "redirect:/";
+    }
+
 }

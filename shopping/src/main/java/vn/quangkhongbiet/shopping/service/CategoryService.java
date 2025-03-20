@@ -1,5 +1,7 @@
 package vn.quangkhongbiet.shopping.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import vn.quangkhongbiet.shopping.domain.Category;
@@ -15,5 +17,9 @@ public class CategoryService {
     
     public Category findByName(String name){
         return this.categoryRepository.findByName(name);
+    }
+
+    public List<Category> findAll(){
+        return this.categoryRepository.findAll();
     }
 }

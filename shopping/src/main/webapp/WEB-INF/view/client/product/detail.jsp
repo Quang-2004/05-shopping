@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <!DOCTYPE html>
         <html lang="en">
 
@@ -156,7 +157,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <form action="/add-product-to-cart/${product.id}" method="post">
+                                <form action="/add-product-to-cart/${product.id}" method="get">
                                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
                                     <button class="btn btn-primary px-3 m-lg-1">

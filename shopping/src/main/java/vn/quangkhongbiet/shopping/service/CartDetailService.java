@@ -37,4 +37,8 @@ public class CartDetailService {
         return this.cartDetailRepository.findByCart(cart);
     }
 
+    public void deleteByCart(Cart cart){ 
+        this.cartDetailRepository.deleteByCart(cart);
+    }
+
 }

@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-    
+
     // Dropdown on mouse hover
     $(document).ready(function () {
         function toggleNavbarMethod() {
@@ -17,8 +17,8 @@
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
-    
-    
+
+
     // Back to top button
     $(window).scroll(function () {
         if ($(this).scrollTop() > 300) {
@@ -42,20 +42,20 @@
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:2
+            0: {
+                items: 2
             },
-            576:{
-                items:3
+            576: {
+                items: 3
             },
-            768:{
-                items:4
+            768: {
+                items: 4
             },
-            992:{
-                items:5
+            992: {
+                items: 5
             },
-            1200:{
-                items:6
+            1200: {
+                items: 6
             }
         }
     });
@@ -69,99 +69,97 @@
         autoplay: true,
         smartSpeed: 1000,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1
             },
-            576:{
-                items:2
+            576: {
+                items: 2
             },
-            768:{
-                items:3
+            768: {
+                items: 3
             },
-            992:{
-                items:4
+            992: {
+                items: 4
             }
         }
     });
 
 
     // Product Quantity
-    // $('.quantity button').on('click', function () {
-    //     var button = $(this);
-    //     var oldValue = button.parent().parent().find('input').val();
-    //     if (button.hasClass('btn-plus')) {
-    //         var newVal = parseFloat(oldValue) + 1;
-    //     } else {
-    //         if (oldValue > 0) {
-    //             var newVal = parseFloat(oldValue) - 1;
-    //         } else {
-    //             newVal = 0;
-    //         }
-    //     }
-    //     button.parent().parent().find('input').val(newVal);
-    // });
+    $('.quantity button').on('click', function () {
+        let change = 0;
 
-    // Product Quantity
-    // $('.quantity button').on('click', function () {
-    //     let change = 0;
+        var button = $(this);
+        var oldValue = button.parent().parent().find('input').val();
+        if (button.hasClass('btn-plus')) {
+            var newVal = parseFloat(oldValue) + 1;
+            change = 1;
+        } else {
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+                change = -1;
+            } else {
+                newVal = 1;
+            }
+        }
+        const input = button.parent().parent().find('input');
+        input.val(newVal);
 
-    //     var button = $(this);
-    //     var oldValue = button.parent().parent().find('input').val();
-    //     if (button.hasClass('btn-plus')) {
-    //         var newVal = parseFloat(oldValue) + 1;
-    //         change = 1;
-    //     } else {
-    //         if (oldValue > 1) {
-    //             var newVal = parseFloat(oldValue) - 1;
-    //             change = -1;
-    //         } else {
-    //             newVal = 1;
-    //         }
-    //     }
-    //     const input = button.parent().parent().find('input');
-    //     input.val(newVal);
-
-    //     //set form index
-    //     const index = input.attr("data-cart-detail-index")
-    //     const el = document.getElementById(`cartDetails${index}.quantity`);
-    //     $(el).val(newVal);
+        //set form index
+        const index = input.attr("data-cart-detail-index")
+        const el = document.getElementById(`cartDetails${index}.quantity`);
+        $(el).val(newVal);
 
 
-    //     //get price
-    //     const price = input.attr("data-cart-detail-price");
-    //     const id = input.attr("data-cart-detail-id");
+        //get price
+        const price = input.attr("data-cart-detail-price");
+        const id = input.attr("data-cart-detail-id");
 
-    //     const priceElement = $(`p[data-cart-detail-id='${id}']`);
-    //     if (priceElement) {
-    //         const newPrice = +price * newVal;
-    //         priceElement.text(formatCurrency(newPrice.toFixed(2)) + " đ");
-    //     }
+        const priceElement = $(`p[data-cart-detail-id='${id}']`);
+        if (priceElement) {
+            const newPrice = +price * newVal;
+            priceElement.text(formatCurrency(newPrice.toFixed(2)) + " đ");
+        }
 
-    //     //update total cart price
-    //     const totalPriceElement = $(`p[data-cart-total-price]`);
+        //update total cart price
+        const totalPriceElement = $(`p[data-cart-total-price]`);
 
-    //     if (totalPriceElement && totalPriceElement.length) {
-    //         const currentTotal = totalPriceElement.first().attr("data-cart-total-price");
-    //         let newTotal = +currentTotal;
-    //         if (change === 0) {
-    //             newTotal = +currentTotal;
-    //         } else {
-    //             newTotal = change * (+price) + (+currentTotal);
-    //         }
+        if (totalPriceElement && totalPriceElement.length) {
+            const currentTotal = totalPriceElement.first().attr("data-cart-total-price");
+            let newTotal = +currentTotal;
+            if (change === 0) {
+                newTotal = +currentTotal;
+            } else {
+                newTotal = change * (+price) + (+currentTotal);
+            }
 
-    //         //reset change
-    //         change = 0;
+            //reset change
+            change = 0;
 
-    //         //update
-    //         totalPriceElement?.each(function (index, element) {
-    //             //update text
-    //             $(totalPriceElement[index]).text(formatCurrency(newTotal.toFixed(2)) + " đ");
+            //update
+            totalPriceElement?.each(function (index, element) {
+                //update text
+                $(totalPriceElement[index]).text(formatCurrency(newTotal.toFixed(2)) + " đ");
 
-    //             //update data-attribute
-    //             $(totalPriceElement[index]).attr("data-cart-total-price", newTotal);
-    //         });
-    //     }
-    // });
-    
+                //update data-attribute
+                $(totalPriceElement[index]).attr("data-cart-total-price", newTotal);
+            });
+        }
+    });
+
+    function formatCurrency(value) {
+        // Use the 'vi-VN' locale to format the number according to Vietnamese currency format
+        // and 'VND' as the currency type for Vietnamese đồng
+        const formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'decimal',
+            minimumFractionDigits: 0, // No decimal part for whole numbers
+        });
+
+        let formatted = formatter.format(value);
+        // Replace dots with commas for thousands separator
+        formatted = formatted.replace(/\./g, ',');
+        return formatted;
+    }
+
 })(jQuery);
 
