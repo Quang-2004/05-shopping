@@ -21,17 +21,17 @@
 
     // Back to top button
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
+        if ($(this).scrollTop() > 100) {
             $('.back-to-top').fadeIn('slow');
         } else {
             $('.back-to-top').fadeOut('slow');
         }
     });
-
     $('.back-to-top').click(function () {
-        $('html, body').animate({ scrollTop: 0 }, 0); // Thay đổi thời gian thành 0 để cuộn ngay lập tức
+        $('html, body').animate({scrollTop: 0}, 300, 'easeInOutExpo');
         return false;
     });
+
 
 
     // Vendor carousel
@@ -160,6 +160,21 @@
         formatted = formatted.replace(/\./g, ',');
         return formatted;
     }
+
+    // add active class to header
+    const navElement = $("#navbarCollapse");
+    const currentUrl = window.location.pathname;
+    navElement.find('a.nav-link').each(function () {
+        const link = $(this); // Get the current link in the loop
+        const href = link.attr('href'); // Get the href attribute of the link
+
+        if (href === currentUrl) {
+            link.addClass('active'); // Add 'active' class if the href matches the currentUrl
+        }
+        else {
+            link.removeClass('active'); // Remove 'active' class if the href does not matches the currentUrl
+        }
+    });
 
 })(jQuery);
 

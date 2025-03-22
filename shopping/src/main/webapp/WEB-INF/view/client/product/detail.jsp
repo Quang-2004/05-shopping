@@ -508,6 +508,8 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
             <script src="/client/lib/easing/easing.min.js"></script>
             <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
             <!-- Contact Javascript File -->
             <script src="/client/mail/jqBootstrapValidation.min.js"></script>

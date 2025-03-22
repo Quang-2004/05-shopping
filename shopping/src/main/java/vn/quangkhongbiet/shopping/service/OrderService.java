@@ -2,6 +2,8 @@ package vn.quangkhongbiet.shopping.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,8 +44,8 @@ public class OrderService {
         return this.orderRepository.findOrderByUser(user);
     }
 
-    public List<Order> findAll() {
-        return this.orderRepository.findAll();
+    public Page<Order> findAll(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
     }
 
     public Order findById(long id){

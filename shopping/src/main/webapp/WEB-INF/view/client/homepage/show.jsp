@@ -221,9 +221,29 @@
                     </c:forEach>
                 </div>
             </div>
-
-
             <!-- Products End -->
+
+            <!--PAGINATION-->
+            <c:if test="${totalPages gt 1}">
+                
+                <div class="col-12">
+                    <nav>
+                      <ul class="pagination justify-content-center">
+                        <li class="page-item ${currentPage eq 1 ? 'disabled' :''}"><a class="page-link" href="/?page=${currentPage - 1}">Previous</a></li>
+                        <c:forEach begin="1" end="${totalPages}" varStatus="loop">
+                            <li class="page-item  ${currentPage eq loop.index ? 'active ' : ''}">
+                                <a class="page-link"
+                                href="/?page=${loop.index}">
+                                ${loop.index}
+                            </a>
+                            </li>
+                        </c:forEach>
+                        <li class="page-item ${currentPage eq totalPages ? 'disabled' :''}"><a class="page-link" href="/?page=${currentPage + 1}">Next</a></li>
+                      </ul>
+                    </nav>
+                </div>
+            </c:if>
+            <!--END PAGINATION-->
 
 
             <!-- Featured Start -->

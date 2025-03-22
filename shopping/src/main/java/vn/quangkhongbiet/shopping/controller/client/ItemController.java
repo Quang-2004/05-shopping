@@ -194,4 +194,10 @@ public class ItemController {
         return "redirect:/cart";
     }
 
+    @GetMapping("/products")
+    public String getFillterProductPage() {
+        return "client/product/products";
+    }
+    
+
 }

@@ -57,7 +57,7 @@
                             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="/" class="nav-item nav-link active">Trang chủ</a>
-                                    <a href="" class="nav-item nav-link">Sản phẩm</a>
+                                    <a href="/products" class="nav-item nav-link">Sản phẩm</a>
                                     <div class="nav-item dropdown">
                                     </div>
                                     <div class="navbar-nav py-lg-0 d-flex m-3 me-0">
@@ -92,6 +92,10 @@
                                                         <li><a class="dropdown-item" href="/account/my-profile">Tài khoản
                                                                 của tôi</a>
                                                         </li>
+                                                        <c:if test="${sessionScope.role eq role1}">
+                                                            <li><a class="dropdown-item" href="/admin">ADMIN Home</a>
+                                                        </li>
+                                                        </c:if>
                                                         <li><a class="dropdown-item" href="/order-history">Lịch sử mua
                                                                 hàng</a></li>
                                                         <li>
