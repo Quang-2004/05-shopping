@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -221,16 +222,50 @@ public class HomePageController {
         return "redirect:/checkout";
     }
 
-    @GetMapping("/account/update-address")
-    public String getUpdateAddressPage() {
+    @GetMapping("/account/update-address/{id}")
+    public String getUpdateAddressPage(@PathVariable long id, Model model) {
+        Address address = this.addressService.findById(id);
+        model.addAttribute("address", address);
         return "client/my-account/update-address";
     }
 
     @PostMapping("/account/update-address")
-    public String handleUpdateAddress() {
-        // TODO: process POST request
+    public String handleUpdateAddress(
+        Model model,
+            @ModelAttribute("updateAddress") @Valid Address updateAddress,
+            BindingResult newAddressBindingResult,
+            HttpServletRequest request) {
+        
+                List<FieldError> errors = newAddressBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+        }
 
-        return "";
+        // validate
+        if (newAddressBindingResult.hasErrors()) {
+            return "client/my-account/address";
+        }
+
+        Optional<Address> OpAddress = Optional.ofNullable(this.addressService.findById(updateAddress.getId()));
+        if(OpAddress.isPresent()){
+            Address currentAddress = OpAddress.get();
+            currentAddress.setDefaultAddress(updateAddress.isDefaultAddress());
+            currentAddress.setReceiverAddress(updateAddress.getReceiverAddress());
+            currentAddress.setReceiverName(updateAddress.getReceiverName());
+            currentAddress.setReceiverPhone(updateAddress.getReceiverPhone());
+            currentAddress.setTypeAddress(updateAddress.getTypeAddress());
+
+            // save
+            this.addressService.save(currentAddress);
+        }
+
+        return "redirect:/account/change-address";
     }
+
+    @GetMapping("/account/my-profile")
+    public String getMyProfilePage() {
+        return "client/my-account/my-profile";
+    }
+    
 
 }

@@ -77,11 +77,7 @@
                                                 <fmt:formatNumber type="number" value="${cartDetail.price}" /> đ
                                             </td>
                                             <td class="align-middle">
-                                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                                    <input type="text" disabled="true"
-                                                        class="form-control form-control-sm bg-secondary border-0 text-center"
-                                                        value="${cartDetail.quantity}">
-                                                </div>
+                                                ${cartDetail.quantity}
                                             </td>
                                             <td>
                                                 <p class="align-middle">

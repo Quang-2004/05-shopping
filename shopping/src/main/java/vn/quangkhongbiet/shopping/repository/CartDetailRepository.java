@@ -25,4 +25,7 @@ public interface CartDetailRepository extends JpaRepository<CartDetail, Long>{
 
     @Transactional
     void deleteByCart(Cart cart);
+
+    @Transactional
+    void deleteByCartAndProduct(Cart cart, Product product);
 }

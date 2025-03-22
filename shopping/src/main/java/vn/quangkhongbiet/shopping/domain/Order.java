@@ -34,7 +34,7 @@ public class Order {
     private List<OrderDetail> orderDetails;
 
     // address id
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
 

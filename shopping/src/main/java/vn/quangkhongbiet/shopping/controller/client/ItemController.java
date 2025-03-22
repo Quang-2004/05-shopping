@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Cart;
 import vn.quangkhongbiet.shopping.domain.CartDetail;
 import vn.quangkhongbiet.shopping.domain.ImageDetail;
+import vn.quangkhongbiet.shopping.domain.Order;
 import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.domain.User;
 import vn.quangkhongbiet.shopping.service.AddressService;
@@ -25,6 +27,7 @@ import vn.quangkhongbiet.shopping.service.ImageDetailService;
 import vn.quangkhongbiet.shopping.service.OrderService;
 import vn.quangkhongbiet.shopping.service.ProductService;
 import vn.quangkhongbiet.shopping.service.UserService;
+
 
 
 @Controller
@@ -68,16 +71,17 @@ public class ItemController {
 
     }
 
-    @GetMapping("/add-product-to-cart/{id}")
+    @PostMapping("/add-product-to-cart")
     public String handleAddProduct(
-            @PathVariable long id,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            @RequestParam("id") long id,
+            @RequestParam("quantity") long quantity) {
 
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
 
-        this.productService.handleAddProductToCart(email, id, session, 1);
-        return "redirect:/";
+        this.productService.handleAddProductToCart(email, id, session, quantity);
+        return "redirect:/product/" + id;
     }
 
     @GetMapping("/cart")
@@ -92,6 +96,7 @@ public class ItemController {
         for (CartDetail cartDetail : cartDetails) {
             totalPrice += (cartDetail.getPrice() * cartDetail.getQuantity());
         }
+
         model.addAttribute("cartDetails", cartDetails);
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cart", cart);
@@ -100,7 +105,9 @@ public class ItemController {
     }
 
     @PostMapping("/confirm-checkout")
-    public String getCheckOutPage(@ModelAttribute("cart") Cart cart, HttpServletRequest request) {
+    public String getCheckOutPage(
+        @ModelAttribute("cart") Cart cart, 
+        HttpServletRequest request) {
         List<CartDetail> cartDetails = cart == null ? new ArrayList<CartDetail>() : cart.getCartDetails();
         this.cartService.handleUpdateCartBeforeCheckout(cartDetails);
 
@@ -155,6 +162,36 @@ public class ItemController {
         this.orderService.handleSaveOrder(session, this.addressService.findByDefaultAddressAndUser(true, currentUser));
 
         return "redirect:/";
+    }
+
+    @GetMapping("/order-history")
+    public String getOrderHistoryPage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User currentUser = this.userService.findByEmail(email);
+        List<Order> orders = this.orderService.findOrderByUser(currentUser);
+
+        model.addAttribute("orders", orders);
+        return "client/cart/order-history";
+    }
+    
+    @PostMapping("/delete-product-from-cart/{id}")
+    public String handleDeleteProductFromCart(@PathVariable long id, HttpServletRequest request){
+        HttpSession session = request.getSession(false);
+        String email = (String) session.getAttribute("email");
+        User currentUser = this.userService.findByEmail(email);
+        Cart cart = this.cartService.findByUser(currentUser);
+
+        this.cartDetailService.deleteByCartAndProduct(cart, this.productService.findById(id));
+
+        if(cart.getSum() > 0){
+            long s = cart.getSum() - 1;
+            cart.setSum(s);
+            this.cartService.save(cart);
+            session.setAttribute("sum", s);
+        }
+        
+        return "redirect:/cart";
     }
 
 }

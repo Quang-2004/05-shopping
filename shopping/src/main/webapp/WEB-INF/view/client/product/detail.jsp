@@ -88,7 +88,7 @@
                                 </div>
                                 <small class="pt-1">(99 Reviews)</small>
                             </div>
-                            <h3 class="font-weight-semi-bold mb-4">${product.price} Đ</h3>
+                            <h3 class="font-weight-semi-bold mb-4"><fmt:formatNumber type="number" value="${product.price}" /> đ</h3>
                             <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet
                                 sit
                                 clita ea. Sanc ipsum et, labore clita lorem magna duo dolor no sea
@@ -143,23 +143,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex quantity align-items-center mb-4 pt-2">
+                            <div class="d-flex align-items-center mb-4 pt-2">
                                 <div class="input-group quantity mr-3" style="width: 130px;">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary btn-minus">
                                             <i class="fa fa-minus"></i>
                                         </button>
                                     </div>
-                                    <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                                    <input type="text" class="form-control bg-secondary border-0 text-center" value="1" data-cart-detail-index="0">
                                     <div class="input-group-btn">
                                         <button class="btn btn-primary btn-plus">
                                             <i class="fa fa-plus"></i>
                                         </button>
                                     </div>
                                 </div>
-                                <form action="/add-product-to-cart/${product.id}" method="get">
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-
+                                <form action="/add-product-to-cart" method="POST" modelAttribute="product">
+                                    <!-- csrf token -->
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    <input type="text" class="form-control d-none" 
+                                            value="${product.id}" name="id"/>
+                                    <input type="text" class="form-control d-none" 
+                                            id="cartDetails0.quantity" name="quantity"  value="1"/>
                                     <button class="btn btn-primary px-3 m-lg-1">
                                         <i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ hàng
                                     </button>

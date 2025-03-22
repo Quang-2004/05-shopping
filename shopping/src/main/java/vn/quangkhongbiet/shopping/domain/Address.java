@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -40,14 +39,12 @@ public class Address {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "address")
-    private Order order;
 
     public Address() {
     }
 
     public Address(long id, boolean defaultAddress, String receiverAddress, String receiverName, String receiverPhone,
-            String typeAddress, User user, Order order) {
+            String typeAddress, User user) {
         this.id = id;
         this.defaultAddress = defaultAddress;
         this.receiverAddress = receiverAddress;
@@ -55,7 +52,6 @@ public class Address {
         this.receiverPhone = receiverPhone;
         this.typeAddress = typeAddress;
         this.user = user;
-        this.order = order;
     }
 
     public long getId() {
@@ -112,14 +108,6 @@ public class Address {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     

@@ -7,6 +7,10 @@ import vn.quangkhongbiet.shopping.domain.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
+
+    @SuppressWarnings("unchecked")
+    Product save(Product product);
+
     Product findById(long id);
 
     void deleteById(long id);

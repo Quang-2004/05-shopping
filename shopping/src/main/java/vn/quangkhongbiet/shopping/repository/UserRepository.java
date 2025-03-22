@@ -7,6 +7,10 @@ import vn.quangkhongbiet.shopping.domain.User;
 
 @Repository 
 public interface UserRepository extends JpaRepository<User, Long>{
+
+    @SuppressWarnings("unchecked")
+    User save(User user);
+
     User findById(long id);
     
     User findByEmail(String email);

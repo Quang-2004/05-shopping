@@ -83,7 +83,7 @@ public class ProductService {
                     this.cartDetailRepository.save(otherCartDetail);
 
                     // update session 
-                    long sum = cart.getSum() + quantity;
+                    long sum = cart.getSum() + 1;
                     cart.setSum(sum);
                     this.cartRepositoty.save(cart);
                     session.setAttribute("sum", sum);
@@ -95,8 +95,7 @@ public class ProductService {
                     this.cartDetailRepository.save(cartDetail);
                     
                 }
-            }
-            
+            } 
         }
     }
 }

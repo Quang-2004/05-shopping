@@ -46,6 +46,10 @@ public class OrderService {
         return this.orderRepository.findAll();
     }
 
+    public Order findById(long id){
+        return this.orderRepository.findById(id);
+    }
+
     public void handleSaveOrder(HttpSession session, Address address) {
         String email = (String) session.getAttribute("email");
         User currentUser = this.userRepository.findByEmail(email);
@@ -58,7 +62,7 @@ public class OrderService {
         }
 
         Order order = new Order();
-        order.setStatus("SHIPPING");
+        order.setStatus("PENDING");
         order.setTotalPrice(totalPrice);
         order.setAddress(address);
         order.setUser(currentUser);
@@ -84,4 +88,14 @@ public class OrderService {
         // update sum in session
         session.setAttribute("sum", 0);
     }
+
+    public void save(Order order){
+        this.orderRepository.save(order);
+    }
+
+    public void deleteById(Long id){
+        this.orderRepository.deleteById(id);
+    }
+
+
 }

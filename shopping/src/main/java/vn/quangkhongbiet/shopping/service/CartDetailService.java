@@ -41,4 +41,8 @@ public class CartDetailService {
         this.cartDetailRepository.deleteByCart(cart);
     }
 
+    public void deleteByCartAndProduct(Cart cart, Product product){
+        this.cartDetailRepository.deleteByCartAndProduct(cart, product);
+    }
+
 }

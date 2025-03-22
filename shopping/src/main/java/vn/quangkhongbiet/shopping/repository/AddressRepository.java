@@ -10,6 +10,10 @@ import java.util.List;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long>{
+
+    @SuppressWarnings("unchecked")
+    Address save(Address address);
+    
     List<Address> findByUser(User user);
 
     boolean existsByUser(User user);

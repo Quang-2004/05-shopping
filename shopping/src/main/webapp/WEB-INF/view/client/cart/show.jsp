@@ -30,6 +30,26 @@
 
                     <!-- Customized Bootstrap Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            const selectAllCheckbox = document.getElementById("selectAll");
+                            const itemCheckboxes = document.querySelectorAll(".item-checkbox");
+                
+                            // Khi chọn "Chọn tất cả"
+                            selectAllCheckbox.addEventListener("change", function() {
+                                itemCheckboxes.forEach(checkbox => {
+                                    checkbox.checked = selectAllCheckbox.checked;
+                                });
+                            });
+                
+                            // Khi chọn/bỏ chọn từng sản phẩm
+                            itemCheckboxes.forEach(checkbox => {
+                                checkbox.addEventListener("change", function() {
+                                    selectAllCheckbox.checked = [...itemCheckboxes].every(cb => cb.checked);
+                                });
+                            });
+                        });
+                    </script>
                 </head>
 
                 <body>
@@ -76,6 +96,9 @@
                                     <table class="table table-light table-borderless table-hover text-center mb-0">
                                         <thead class="thead-dark">
                                             <tr>
+                                                <th>
+                                                    <input class="align-middle" type="checkbox" id="selectAll">
+                                                </th>
                                                 <th>Sản phẩm</th>
                                                 <th>Tên</th>
                                                 <th>Giá</th>
@@ -87,6 +110,9 @@
                                         <tbody class="align-middle">
                                             <c:forEach items="${cartDetails}" var="cartDetail" varStatus="status">
                                                 <tr>
+                                                    <th class="align-middle">
+                                                        <input class="align-middle item-checkbox" type="checkbox" value="" aria-checked="false">
+                                                    </th>
                                                     <td class="align-items-start"><img
                                                             src="/images/product/${cartDetail.product.image}" alt=""
                                                             style="width: 50px;"></td>
@@ -114,13 +140,25 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td>
-                                                        <p class="align-middle" data-cart-detail-id="${cartDetail.id}">
+                                                    <td class="align-middle">
+                                                        <p style="margin-top: 20px !important;" data-cart-detail-id="${cartDetail.id}">
                                                             <fmt:formatNumber type="number"
                                                                 value="${cartDetail.price * cartDetail.quantity}" /> đ
                                                         </p>
                                                     </td>
-                                                    <td class="align-middle"><i class="fa fa-times"></i></td>
+                                                    <td class="align-middle">
+                                                        <form method="post" action="/delete-product-from-cart/${cartDetail.product.id}">
+                                                            <!-- csrf token -->
+                                                            <input type="hidden"
+                                                            name="${_csrf.parameterName}"
+                                                            value="${_csrf.token}" />
+                                                            <button class="btn btn-md rounded-circle bg-light border">
+                                                                <i class="fa fa-times text-danger"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    
+                                                    
                                                 </tr>
                                             </c:forEach>
 
