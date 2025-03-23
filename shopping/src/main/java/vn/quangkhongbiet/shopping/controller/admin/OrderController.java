@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Order;
 import vn.quangkhongbiet.shopping.domain.OrderDetail;
-import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.service.AddressService;
 import vn.quangkhongbiet.shopping.service.OrderDetailService;
 import vn.quangkhongbiet.shopping.service.OrderService;

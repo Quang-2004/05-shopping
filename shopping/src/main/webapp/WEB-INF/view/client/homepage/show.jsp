@@ -202,7 +202,7 @@
                                     </a>
                                 </div>
                                 <div class="text-center py-4">
-                                    <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+                                    <div class="h6 text-decoration-none text-truncate">${product.name}</div>
                                     <div class="d-flex align-items-center justify-content-center mt-2">
                                         <h5><fmt:formatNumber type="number" value="${product.price}" /> đ</h5>
                                         <h6 class="text-muted ml-2"><del><fmt:formatNumber type="number" value="${product.price}" /> đ</del></h6>

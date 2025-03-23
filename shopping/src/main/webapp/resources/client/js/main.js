@@ -176,5 +176,100 @@
         }
     });
 
+    $(document).ready(function () {
+        // Restore state from URL when page loads
+        const currentUrl = new URL(window.location.href);
+        const searchParams = currentUrl.searchParams;
+
+        // Get values from URL
+        const factoryValues = searchParams.get('factory') ? searchParams.get('factory').split(',') : [];
+        const priceValues = searchParams.get('price') ? searchParams.get('price').split(',') : [];
+        const sortValue = searchParams.get('sort') || 'khong-sap-xep'; // Giá trị mặc định nếu không có
+
+        // Khôi phục trạng thái checkbox cho factoryFilter
+        // Restore state checkbox for factoryFilter
+        $("#factoryFilter .custom-control-input").each(function () {
+            if (factoryValues.includes($(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+
+        // Restore state checkbox for priceFilter
+        $("#priceFilter .custom-control-input").each(function () {
+            if (priceValues.includes($(this).val())) {
+                $(this).prop('checked', true);
+            }
+        });
+
+        // Restore state for radio sort
+        $(`input[name="radio-sort"][value="${sortValue}"]`).prop('checked', true);
+
+
+        // handle filter Products
+        $('#btnFilter').click(function (event) {
+            event.preventDefault();
+
+            let factoryArr = [];
+            let priceArr = [];
+
+            // factory filter
+            $("#factoryFilter .custom-control-input:checked").each(function () {
+                factoryArr.push($(this).val());
+            });
+
+            // price filter
+            $("#priceFilter .custom-control-input:checked").each(function () {
+                priceArr.push($(this).val());
+            });
+
+            // sort order
+            let sortValue = $('input[name="radio-sort"]:checked').val();
+
+            const currentUrl = new URL(window.location.href);
+            const searchParams = currentUrl.searchParams;
+
+            // Add or update query paragrams
+            searchParams.set('page', '1');
+            searchParams.set('sort', sortValue);
+
+            // reset 
+            searchParams.delete('factory');
+            searchParams.delete('price');
+            searchParams.delete('search');
+            searchParams.delete('page');
+            searchParams.delete('sort');
+            searchParams.delete('categoryName');
+
+            if (factoryArr.length > 0) {
+                searchParams.set('factory', factoryArr.join(','));
+            }
+            if (priceArr.length > 0) {
+                searchParams.set('price', priceArr.join(','));
+            }
+
+            // Update the URL and reload the page
+            window.location.href = currentUrl.toString();
+
+        });
+    });
+
+    // delete filter when can't not product
+    $('#btnDeleteFilter').click(function (event) {
+
+        const currentUrl = new URL(window.location.href);
+        const searchParams = currentUrl.searchParams;
+
+        // reset 
+        searchParams.delete('factory');
+        searchParams.delete('price');
+        searchParams.delete('page');
+        searchParams.delete('sort');
+        searchParams.delete('search');
+        searchParams.delete('categoryName');
+
+        // Update the URL and reload the page
+        window.location.href = currentUrl.toString();
+    });
+
 })(jQuery);
 

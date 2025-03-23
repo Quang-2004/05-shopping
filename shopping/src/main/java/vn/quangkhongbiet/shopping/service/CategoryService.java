@@ -2,6 +2,9 @@ package vn.quangkhongbiet.shopping.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import vn.quangkhongbiet.shopping.domain.Category;
@@ -21,5 +24,9 @@ public class CategoryService {
 
     public List<Category> findAll(){
         return this.categoryRepository.findAll();
+    }
+
+    public Page<Category> findAllWithSpec(Specification<Category> spec, Pageable pageable){
+        return this.categoryRepository.findAll(spec, pageable);
     }
 }

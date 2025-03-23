@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
 import vn.quangkhongbiet.shopping.domain.ImageDetail;
-import vn.quangkhongbiet.shopping.domain.Order;
 import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.service.CategoryService;
 import vn.quangkhongbiet.shopping.service.ImageDetailService;

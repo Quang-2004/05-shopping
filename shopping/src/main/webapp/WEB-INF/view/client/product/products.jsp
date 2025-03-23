@@ -60,138 +60,103 @@
                         <div class="col-lg-3 col-md-4">
                             <!-- Price Start -->
                             <h5 class="section-title position-relative text-uppercase mb-3"><span
-                                    class="bg-secondary pr-3">Filter by price</span></h5>
-                            <div class="bg-light p-4 mb-30">
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                                        <label class="custom-control-label" for="price-all">All Price</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-1">
-                                        <label class="custom-control-label" for="price-1">$0 - $100</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-2">
-                                        <label class="custom-control-label" for="price-2">$100 - $200</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-3">
-                                        <label class="custom-control-label" for="price-3">$200 - $300</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="price-4">
-                                        <label class="custom-control-label" for="price-4">$300 - $400</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="price-5">
-                                        <label class="custom-control-label" for="price-5">$400 - $500</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
+                                    class="bg-secondary pr-3">Giá cả</span></h5>
+                            <div class="bg-light p-4 mb-30" id="priceFilter">
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="price-1" value="duoi-500">
+                                    <label class="custom-control-label" for="price-1">0 - 500.000 đ</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="price-2"
+                                        value="500-den-1-trieu">
+                                    <label class="custom-control-label" for="price-2">500.000 - 1 triệu</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="price-3"
+                                        value="1-den-1-trieu-500">
+                                    <label class="custom-control-label" for="price-3">1 - 1.5 triệu</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="price-4"
+                                        value="1-trieu-500-den-2-trieu">
+                                    <label class="custom-control-label" for="price-4">1.5 - 2 triệu</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                                    <input type="checkbox" class="custom-control-input" id="price-5"
+                                        value="2-trieu-den-2-trieu-500">
+                                    <label class="custom-control-label" for="price-5">2- 2.5 triệu</label>
+                                </div>
                             </div>
                             <!-- Price End -->
 
-                            <!-- Color Start -->
+                            <!-- Factory Start -->
                             <h5 class="section-title position-relative text-uppercase mb-3"><span
-                                    class="bg-secondary pr-3">Filter by color</span></h5>
-                            <div class="bg-light p-4 mb-30">
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="color-all">
-                                        <label class="custom-control-label" for="price-all">All Color</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-1">
-                                        <label class="custom-control-label" for="color-1">Black</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-2">
-                                        <label class="custom-control-label" for="color-2">White</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-3">
-                                        <label class="custom-control-label" for="color-3">Red</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="color-4">
-                                        <label class="custom-control-label" for="color-4">Blue</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="color-5">
-                                        <label class="custom-control-label" for="color-5">Green</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
+                                    class="bg-secondary pr-3">Nhãn hàng</span></h5>
+                            <div class="bg-light p-4 mb-30" id="factoryFilter">
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="factory-1" value="NIKE">
+                                    <label class="custom-control-label" for="factory-1">Nike</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="factory-2" value="ADIDAS">
+                                    <label class="custom-control-label" for="factory-2">Adidas</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="factory-3" value="HM">
+                                    <label class="custom-control-label" for="factory-3">H&M</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="checkbox" class="custom-control-input" id="factory-4" value="GUCCI">
+                                    <label class="custom-control-label" for="factory-4">Gucci</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
+                                    <input type="checkbox" class="custom-control-input" id="factory-5" value="ZARA">
+                                    <label class="custom-control-label" for="factory-5">Zara</label>
+                                </div>
                             </div>
-                            <!-- Color End -->
+                            <!-- Factory End -->
 
-                            <!-- Size Start -->
+                            <!-- Sort Start -->
                             <h5 class="section-title position-relative text-uppercase mb-3"><span
-                                    class="bg-secondary pr-3">Filter by size</span></h5>
-                            <div class="bg-light p-4 mb-30">
-                                <form>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" checked id="size-all">
-                                        <label class="custom-control-label" for="size-all">All Size</label>
-                                        <span class="badge border font-weight-normal">1000</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-1">
-                                        <label class="custom-control-label" for="size-1">XS</label>
-                                        <span class="badge border font-weight-normal">150</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-2">
-                                        <label class="custom-control-label" for="size-2">S</label>
-                                        <span class="badge border font-weight-normal">295</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-3">
-                                        <label class="custom-control-label" for="size-3">M</label>
-                                        <span class="badge border font-weight-normal">246</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                                        <input type="checkbox" class="custom-control-input" id="size-4">
-                                        <label class="custom-control-label" for="size-4">L</label>
-                                        <span class="badge border font-weight-normal">145</span>
-                                    </div>
-                                    <div
-                                        class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-control-input" id="size-5">
-                                        <label class="custom-control-label" for="size-5">XL</label>
-                                        <span class="badge border font-weight-normal">168</span>
-                                    </div>
-                                </form>
+                                    class="bg-secondary pr-3">Sắp xếp</span></h5>
+                            <div class="bg-light p-4 mb-30" id="sortFilter">
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="sort-1" value="khong-sap-xep"
+                                        name="radio-sort">
+                                    <label class="custom-control-label" for="sort-1">Không sắp xếp</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="sort-2" value="tang-dan"
+                                        name="radio-sort">
+                                    <label class="custom-control-label" for="sort-2">Tăng dần</label>
+                                </div>
+                                <div
+                                    class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                    <input type="radio" class="custom-control-input" id="sort-3" value="giam-dan"
+                                        name="radio-sort">
+                                    <label class="custom-control-label" for="sort-3">Giảm dần</label>
+                                </div>
+
                             </div>
-                            <!-- Size End -->
+                            <!-- Sort End -->
+
+                            <div class="d-flex justify-content-center my-4">
+                                <button class="btn border-4 btn-outline-success px-4 py-3 rounded-pill w-100"
+                                    id="btnFilter">
+                                    Lọc sản phẩm</button>
+                            </div>
                         </div>
                         <!-- Shop Sidebar End -->
 
@@ -201,24 +166,26 @@
                             <div class="row pb-3">
                                 <div class="col-12 pb-1">
                                     <div class="d-flex align-items-center justify-content-between mb-4">
+
                                         <div>
-                                            <button class="btn btn-sm btn-light"><i class="fa fa-th-large"></i></button>
-                                            <button class="btn btn-sm btn-light ml-2"><i
-                                                    class="fa fa-bars"></i></button>
+                                            <c:if test="${totalProducts gt 0}">
+                                                <p>Tìm thấy ${totalProducts} kết quả.</p>
+                                            </c:if>
                                         </div>
                                         <div class="ml-2">
+                                            <div class="btn-group">Sắp xếp theo</div>
                                             <div class="btn-group">
                                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                                    data-toggle="dropdown">Sorting</button>
+                                                    data-toggle="dropdown">Sắp xếp</button>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#">Latest</a>
-                                                    <a class="dropdown-item" href="#">Popularity</a>
-                                                    <a class="dropdown-item" href="#">Best Rating</a>
+                                                    <a class="dropdown-item" href="#">Giá cả: Tăng dần</a>
+                                                    <a class="dropdown-item" href="#">Giá cả: Giảm dần</a>
+                                                    <a class="dropdown-item" href="#">Đánh giá tốt nhất</a>
                                                 </div>
                                             </div>
                                             <div class="btn-group ml-2">
                                                 <button type="button" class="btn btn-sm btn-light dropdown-toggle"
-                                                    data-toggle="dropdown">Showing</button>
+                                                    data-toggle="dropdown">Số sản phẩm</button>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item" href="#">10</a>
                                                     <a class="dropdown-item" href="#">20</a>
@@ -228,63 +195,86 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-                                    <div class="product-item bg-light mb-4">
-                                        <div class="product-img position-relative overflow-hidden">
-                                            <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                                            <div class="product-action">
-                                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                                        class="fa fa-shopping-cart"></i></a>
-                                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                                        class="far fa-heart"></i></a>
-                                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                                        class="fa fa-sync-alt"></i></a>
-                                                <a class="btn btn-outline-dark btn-square" href=""><i
-                                                        class="fa fa-search"></i></a>
+                                <c:if test="${totalPages eq 0}">
+                                    <div class="container">
+                                        <div class="row d-flex justify-content-center align-items-center"
+                                            style="min-height: 300px;">
+                                            <div class="col text-center">
+                                                <img src="/client/img/cant-find-product.png" alt="Can't find product"
+                                                    style="width: 400px; height: 270px;"> <br>
+                                                Rất tiếc, chúng tôi không tìm thấy sản phẩm. <br> <br>
+                                                <button
+                                                    class="btn border-4 btn-outline-success px-4 py-3 rounded-pill"
+                                                    id="btnDeleteFilter">
+                                                    Xóa bộ lọc</button>
                                             </div>
-                                        </div>
-                                        <div class="text-center py-4">
-                                            <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes
-                                                Here</a>
-                                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                                <h5>$123.00</h5>
-                                                <h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small>(99)</small>
-                                            </div>
+
                                         </div>
                                     </div>
-                                    
-                                </div>
+                                </c:if>
+                                <c:forEach items="${products}" var="product">
+                                    <div class="col-lg-3 col-md-6 col-sm-6 pb-1">
+                                        <div class="product-item bg-light mb-4">
+                                            <div class="product-img position-relative overflow-hidden">
+                                                <a href="/product/${product.id}">
+                                                    <img class="img-fluid w-100" src="/images/product/${product.image}"
+                                                        alt="">
+                                                </a>
+                                            </div>
+                                            <div class="text-center py-4">
+                                                <div class="h6 text-decoration-none text-truncate">${product.name}</div>
+                                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                                    <h5>
+                                                        <fmt:formatNumber type="number" value="${product.price}" /> đ
+                                                    </h5>
+                                                    <h6 class="text-muted ml-2"><del>
+                                                            <fmt:formatNumber type="number" value="${product.price}" />
+                                                            đ
+                                                        </del></h6>
+                                                </div>
+                                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                    <small class="fa fa-star text-primary mr-1"></small>
+                                                    <small>(${product.totalReview})</small>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <c:if test="${totalPages gt 0}">
+                                    </div>
+                                </c:forEach>
+
+
+                                <!--PAGINATION-->
+                                <c:if test="${totalPages gt 1}">
 
                                     <div class="col-12">
                                         <nav>
                                             <ul class="pagination justify-content-center">
                                                 <li class="page-item ${currentPage eq 1 ? 'disabled' :''}"><a
-                                                        class="page-link" href="/?page=${currentPage - 1}">Previous</a>
+                                                        class="page-link"
+                                                        href="/products?page=${currentPage - 1}${queryString}">Previous</a>
                                                 </li>
                                                 <c:forEach begin="1" end="${totalPages}" varStatus="loop">
                                                     <li
                                                         class="page-item  ${currentPage eq loop.index ? 'active ' : ''}">
-                                                        <a class="page-link" href="/?page=${loop.index}">
+                                                        <a class="page-link"
+                                                            href="/products?page=${loop.index}${loop.index ne currentPage ? queryString : ''}">
                                                             ${loop.index}
                                                         </a>
                                                     </li>
                                                 </c:forEach>
                                                 <li class="page-item ${currentPage eq totalPages ? 'disabled' :''}"><a
-                                                        class="page-link" href="/?page=${currentPage + 1}">Next</a></li>
+                                                        class="page-link"
+                                                        href="/products?page=${currentPage + 1}${queryString}">Next</a>
+                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
                                 </c:if>
+                                <!--END PAGINATION-->
                             </div>
                         </div>
                         <!-- Shop Product End -->

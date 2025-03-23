@@ -13,9 +13,9 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-6 text-left">
-                        <form action="">
+                        <form action="/products">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+                                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="search">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-transparent text-primary">
                                         <i class="fa fa-search"></i>
@@ -39,7 +39,7 @@
                             id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                             <div class="navbar-nav w-100">
                                 <c:forEach items="${categories}" var="category">
-                                    <a href="" class="nav-item nav-link">${category.content}</a>
+                                    <a href="/products?categoryName=${category.name}" class="nav-item nav-link">${category.content}</a>                            
                                 </c:forEach>
                             </div>
                         </nav>

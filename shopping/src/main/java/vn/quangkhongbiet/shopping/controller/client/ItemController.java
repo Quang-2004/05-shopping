@@ -3,6 +3,10 @@ package vn.quangkhongbiet.shopping.controller.client;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +20,17 @@ import jakarta.servlet.http.HttpSession;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Cart;
 import vn.quangkhongbiet.shopping.domain.CartDetail;
+import vn.quangkhongbiet.shopping.domain.Category;
 import vn.quangkhongbiet.shopping.domain.ImageDetail;
 import vn.quangkhongbiet.shopping.domain.Order;
 import vn.quangkhongbiet.shopping.domain.Product;
+import vn.quangkhongbiet.shopping.domain.Product_;
 import vn.quangkhongbiet.shopping.domain.User;
+import vn.quangkhongbiet.shopping.domain.DTO.ProductCriteriaDTO;
 import vn.quangkhongbiet.shopping.service.AddressService;
 import vn.quangkhongbiet.shopping.service.CartDetailService;
 import vn.quangkhongbiet.shopping.service.CartService;
+import vn.quangkhongbiet.shopping.service.CategoryService;
 import vn.quangkhongbiet.shopping.service.ImageDetailService;
 import vn.quangkhongbiet.shopping.service.OrderService;
 import vn.quangkhongbiet.shopping.service.ProductService;
@@ -41,6 +49,8 @@ public class ItemController {
     private final CartDetailService cartDetailService;
     private final AddressService addressService;
     private final OrderService orderService;
+    private final CategoryService categoryService;
+    
 
     public ItemController(
             ProductService productService,
@@ -49,7 +59,8 @@ public class ItemController {
             CartService cartService,
             CartDetailService cartDetailService,
             AddressService addressService,
-            OrderService orderService) {
+            OrderService orderService,
+            CategoryService categoryService) {
 
         this.productService = productService;
         this.imageDetailService = imageDetailService;
@@ -58,6 +69,7 @@ public class ItemController {
         this.cartDetailService = cartDetailService;
         this.addressService = addressService;
         this.orderService = orderService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/product/{id}")
@@ -195,7 +207,55 @@ public class ItemController {
     }
 
     @GetMapping("/products")
-    public String getFillterProductPage() {
+    public String getFillterProductPage(
+        Model model,
+        HttpServletRequest request, 
+        ProductCriteriaDTO productCriteriaDTO) {
+
+            int page = 1;
+        try {
+            if(productCriteriaDTO.getPage().isPresent()){
+                page = Integer.parseInt(productCriteriaDTO.getPage().get());
+            }
+            else{
+                // page = 1
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        Pageable pageable = PageRequest.of(page - 1, 10);
+        if(productCriteriaDTO.getSort() != null){
+            String sort = productCriteriaDTO.getSort().get();
+            if(sort.equals("tang-dan")){
+                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).ascending());
+            }
+            else if(sort.equals("giam-dan")){
+                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).descending());
+            }
+        }
+
+
+        
+        Page<Product> PageProducts = this.productService.findAllWithSpec(pageable, productCriteriaDTO);
+        List<Product> products = PageProducts.getContent();
+
+        List<Category> categories = this.categoryService.findAll();
+
+
+        String qs = request.getQueryString();
+        if(qs != null && !qs.isBlank()){
+            // remove page
+            qs = qs.replace("page=" + page, "");
+        }
+        long totalProducts = PageProducts.getTotalElements();
+
+        model.addAttribute("products", products);
+        model.addAttribute("categories", categories);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", PageProducts.getTotalPages());
+        model.addAttribute("queryString", qs);
+        model.addAttribute("totalProducts", totalProducts);
         return "client/product/products";
     }
     
