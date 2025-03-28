@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -53,14 +54,24 @@ public class SecurityConfiguration {
                         // vd: home lấy list product
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE).permitAll()
                         .requestMatchers("/", "/login", "/register", "/client/**", "/css/**", "/js/**", "/images/**",
-                                "/product/**", "/products/**")
+                                "/product/**", "/products/*", "/client/product/**")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/client/**").hasRole("USER")
                         .anyRequest().authenticated())
 
+                .sessionManagement((sessionManagement) -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // luôn tạo session mới
+
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1) // giới hạn 1 tk login tối đa trên 1 thiết bị
+                        .maxSessionsPreventsLogin(false)) // neu có thêm1 người login vào thì ng sau đá ng trc
+                        // giống kiểu liên quân
+                        // nếu là true thì ngc lại
+                        // .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+
                 .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
-                
+
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")

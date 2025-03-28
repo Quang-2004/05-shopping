@@ -79,13 +79,12 @@ public class HomePageController {
         List<Product> products = PageProducts.getContent();
 
         List<Category> categories = this.categoryService.findAll();
-
+        
 
         model.addAttribute("products", products);
-        model.addAttribute("categories", categories);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", PageProducts.getTotalPages());
-
+        model.addAttribute("categories", categories);
         return "client/homepage/show";
     }
 

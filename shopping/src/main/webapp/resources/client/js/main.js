@@ -184,6 +184,7 @@
         // Get values from URL
         const factoryValues = searchParams.get('factory') ? searchParams.get('factory').split(',') : [];
         const priceValues = searchParams.get('price') ? searchParams.get('price').split(',') : [];
+        const categoryValues = searchParams.get('categoryName') ? searchParams.get('categoryName') : '';
         const sortValue = searchParams.get('sort') || 'khong-sap-xep'; // Giá trị mặc định nếu không có
 
         // Khôi phục trạng thái checkbox cho factoryFilter
@@ -222,6 +223,7 @@
                 priceArr.push($(this).val());
             });
 
+
             // sort order
             let sortValue = $('input[name="radio-sort"]:checked').val();
 
@@ -240,12 +242,17 @@
             searchParams.delete('sort');
             searchParams.delete('categoryName');
 
+
+            if (categoryValues) { // Thêm lại categoryName từ categoryValues
+                searchParams.set('categoryName', categoryValues);
+            }
             if (factoryArr.length > 0) {
                 searchParams.set('factory', factoryArr.join(','));
             }
             if (priceArr.length > 0) {
                 searchParams.set('price', priceArr.join(','));
             }
+            
 
             // Update the URL and reload the page
             window.location.href = currentUrl.toString();
@@ -270,6 +277,9 @@
         // Update the URL and reload the page
         window.location.href = currentUrl.toString();
     });
+
+
+    
 
 })(jQuery);
 

@@ -45,7 +45,7 @@
                         </ol>
                         <div class="container col-6">
                             <h3>Create a user</h3> <hr>
-                            <form:form action="/admin/user/create" method="POST" modelAttribute="newUser">
+                            <form:form action="/admin/user/create" method="POST" modelAttribute="newUser" enctype="multipart/form-data">
                                 <c:set var="errorEmail">
                                     <form:errors path="email" cssClass="invalid-feedback"/>
                                 </c:set>
@@ -95,7 +95,7 @@
                                     
                                     <div class="mb-3 col-6">
                                         <label for="avatarFile" class="form-label">Avatar: </label>
-                                        <input type="file" class="form-control" id="avatarFile" name="hoidanitFile" 
+                                        <input type="file" class="form-control" id="avatarFile" name="avatarFile" 
                                             accept=".png, .jpg, .jpeg"/>	
                                     </div>
                                 </div>

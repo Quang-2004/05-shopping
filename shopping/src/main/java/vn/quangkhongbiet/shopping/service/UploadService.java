@@ -54,8 +54,8 @@ public class UploadService {
         List<String> images = new ArrayList<>();
         for (MultipartFile file : multipartFiles) {
             // don't upload file
-            if (file.isEmpty())
-                return null;
+            if (file.isEmpty() || file == null)
+                continue;
 
             String finalName = "";
             try {

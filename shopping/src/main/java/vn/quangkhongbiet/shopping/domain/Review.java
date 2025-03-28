@@ -1,6 +1,6 @@
 package vn.quangkhongbiet.shopping.domain;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -17,9 +17,12 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private long rating;
     private String comment;
-    private Date postingDate;
+
+    private LocalDateTime postingDate;
+
 
     // userId
     @ManyToOne(fetch = FetchType.EAGER)
@@ -34,7 +37,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(long id, long rating, String comment, Date postingDate, User user, Product product) {
+    public Review(long id, long rating, String comment, LocalDateTime postingDate, User user, Product product) {
         this.id = id;
         this.rating = rating;
         this.comment = comment;
@@ -67,11 +70,11 @@ public class Review {
         this.comment = comment;
     }
 
-    public Date getPostingDate() {
+    public LocalDateTime getPostingDate() {
         return postingDate;
     }
 
-    public void setPostingDate(Date postingDate) {
+    public void setPostingDate(LocalDateTime postingDate) {
         this.postingDate = postingDate;
     }
 
@@ -91,6 +94,5 @@ public class Review {
         this.product = product;
     }
 
-    
 
 }

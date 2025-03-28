@@ -27,4 +27,8 @@ public class OrderDetailService {
     public List<OrderDetail> findByOrder(Order order){
         return this.orderDetailRepository.findByOrder(order);
     }
+
+    public OrderDetail findById(long id){
+        return this.orderDetailRepository.findById(id);
+    }
 }

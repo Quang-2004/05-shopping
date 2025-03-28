@@ -12,7 +12,7 @@
                             <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
                         </a>
                     </div>
-                    <div class="col-lg-4 col-6 text-left">
+                    <!-- <div class="col-lg-4 col-6 text-left">
                         <form action="/products">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="search">
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- Topbar End -->
@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-lg-9">
                         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                            <a href="" class="text-decoration-none d-block d-lg-none">
+                            <a href="/" class="text-decoration-none d-block d-lg-none">
                                 <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
                                 <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
                             </a>
@@ -58,29 +58,39 @@
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="/" class="nav-item nav-link active">Trang chủ</a>
                                     <a href="/products" class="nav-item nav-link">Sản phẩm</a>
-                                    <div class="nav-item dropdown">
+                                    <div class="nav-item dropdown mt-3 mx-xl-5 mx-xl-5 mr-5 px-xl-5 ">
+                                        <div class="col-lg-12 col-12 text-left">
+                                            <form action="/products">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm..." name="search" value="${search}">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text bg-transparent text-primary">
+                                                            <i class="fa fa-search"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <div class="navbar-nav py-lg-0 d-flex m-3 me-0">
+                                    <div class="d-flex align-items-center ml-auto">
                                         <c:if test="${not empty sessionScope.email}">
                                             <div class="btn px-0">
                                                 <div class="dropdown my-auto">
-    
                                                     <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
-                                                        data-bs-toggle="dropdown" aria-expanded="false"
                                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                                        <i class="fas fa-user fa-x"></i>
+                                                        <i class="fas fa-user fa-lg text-light"></i>
                                                     </a>
                                                     <ul class="dropdown-menu dropdown-menu-end p-4" aria-
                                                         labelledby="dropdownMenuLink">
                                                         <li class="d-flex align-items-center flex-column"
-                                                            style="min-width: 130px;">
+                                                            style="min-width: 150px;">
     
                                                             <c:if test="${not empty sessionScope.avatar}">
-                                                                <img style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;"
+                                                                <img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
                                                                     src="/images/avatar/${sessionScope.avatar}" />
                                                             </c:if>
                                                             <c:if test="${empty sessionScope.avatar}">
-                                                                <img style="width: 80px; height: 80px; border-radius: 50%; overflow: hidden;"
+                                                                <img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
                                                                     src="/images/avatar/defaut-avatar.jpg" />
                                                             </c:if>
     
@@ -113,15 +123,14 @@
                                                 </div>
                                             </div>
                                             <a href="/cart" class="btn px-0 ml-3">
-                                                <i class="fas fa-shopping-cart text-primary"></i>
-                                                <span class="badge text-secondary border border-secondary rounded-circle"
-                                                    style="padding-bottom: 2px;">${sessionScope.sum}</span>
+                                                <i class="fas fa-shopping-cart fa-lg text-primary"></i>
+                                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">${sessionScope.sum}</span>
                                             </a>
                                         </c:if>
                                         <c:if test="${empty sessionScope.email}">
-                                            
-                                            <a class="mr-2" href="/login">Đăng nhập</a> <p> | </p> <a class="ml-2" href="/register">Đăng ký</a>
-
+                                            <a class="mr-2 text-light" href="/login">Đăng nhập</a>
+                                            <p class="text-light mx-2">|</p>
+                                            <a class="ml-2 text-light" href="/register">Đăng ký</a>
                                         </c:if>
                                         
                                     </div>

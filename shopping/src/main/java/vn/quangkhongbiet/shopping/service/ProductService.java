@@ -138,4 +138,8 @@ public class ProductService {
         }
         return this.productRepository.findAll(combinedSpec, pageable);
     }
+
+    public List<Product> findProductSuggestionWithSpec(String categoryName){
+        return this.productRepository.findAll(CategorySpecs.matchCategoryName(categoryName));
+    }
 }

@@ -62,6 +62,7 @@ public class Product {
     private String color;
 
     private long totalReview;
+    private long totalRating;
 
     // categoryId
     @ManyToOne(fetch = FetchType.EAGER)
@@ -79,7 +80,7 @@ public class Product {
 
     public Product(long id, String detailDesc, String factory, String image, String name, long price, long quantity,
             String shortDesc, long sold, String target, String size, String color, long totalReview, Category category,
-            List<ImageDetail> imageDetails, List<Review> reviews) {
+            List<ImageDetail> imageDetails, List<Review> reviews, long totalRating) {
         this.id = id;
         this.detailDesc = detailDesc;
         this.factory = factory;
@@ -96,6 +97,7 @@ public class Product {
         this.category = category;
         ImageDetails = imageDetails;
         this.reviews = reviews;
+        this.totalRating = totalRating;
     }
 
     public long getId() {
@@ -226,6 +228,14 @@ public class Product {
         this.reviews = reviews;
     }
 
+    public long getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(long totalRating) {
+        this.totalRating = totalRating;
+    }
+    
     
 
 }

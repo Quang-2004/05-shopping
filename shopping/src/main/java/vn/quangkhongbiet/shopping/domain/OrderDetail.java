@@ -17,6 +17,7 @@ public class OrderDetail {
     private long id;
     private long price;
     private long quantity;
+    private boolean evaluated; // đã đánh giá hay chưa
 
     // orderId
     @ManyToOne(fetch = FetchType.EAGER)
@@ -31,12 +32,13 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(long id, long price, long quantity, Order order, Product product) {
+    public OrderDetail(long id, long price, long quantity, Order order, Product product,boolean evaluated) {
         this.id = id;
         this.price = price;
         this.quantity = quantity;
         this.order = order;
         this.product = product;
+        this.evaluated = evaluated;
     }
 
     public long getId() {
@@ -79,6 +81,14 @@ public class OrderDetail {
         this.product = product;
     }
 
+    public boolean isEvaluated() {
+        return evaluated;
+    }
+
+    public void setEvaluated(boolean evaluated) {
+        this.evaluated = evaluated;
+    }
+    
     
 
 }

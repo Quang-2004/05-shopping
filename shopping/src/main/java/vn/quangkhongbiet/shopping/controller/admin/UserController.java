@@ -114,6 +114,9 @@ public class UserController {
 
             session.setAttribute("avatar", avatar);
         }
+        else{
+            user.setAvatar("defaut-avatar.jpg");
+        }
 
         this.userService.save(user);
 

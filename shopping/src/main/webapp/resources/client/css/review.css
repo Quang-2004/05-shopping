@@ -1,0 +1,276 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    position: relative;
+}
+
+.header {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.header h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.scrollable-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.product-info {
+    margin-bottom: 20px;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-details img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.product-details p {
+    font-size: 14px;
+    color: #333;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.rating p {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px;
+    white-space: nowrap;
+}
+
+.stars {
+    color: #ccc;
+    font-size: 20px;
+    display: inline-flex;
+    position: sticky;
+    top: 0;
+}
+
+.star {
+    cursor: pointer;
+    transition: color 0.2s;
+    width: 20px;
+    text-align: center;
+}
+
+.star.active {
+    color: #f5c518;
+}
+
+.rating-text {
+    color: #f5c518;
+    font-weight: bold;
+    margin-left: 20px;
+    white-space: nowrap;
+}
+
+.review-form label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+}
+
+.review-form p {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.review-form textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    resize: none;
+}
+
+.media-upload {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.upload-btn {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ff4d4f;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #ff4d4f;
+    font-size: 14px;
+    font-weight: bold;
+    position: relative;
+    white-space: nowrap;
+}
+
+.upload-btn i {
+    margin-right: 5px;
+    color: #ff4d4f;
+}
+
+.upload-btn span {
+    line-height: 1;
+}
+
+.upload-btn input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.media-preview {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.media-preview .thumbnail {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.media-preview .thumbnail img,
+.media-preview .thumbnail video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.media-preview .thumbnail .remove-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.media-preview .add-more {
+    width: 50px;
+    height: 50px;
+    border: 1px dashed #ddd;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.media-preview .add-more i {
+    color: #888;
+    font-size: 20px;
+}
+
+.media-preview .add-more input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.media-upload p {
+    font-size: 12px;
+    color: #888;
+    margin-top: 10px;
+}
+
+.footer {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 1;
+}
+
+.back-btn, .submit-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.back-btn {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+}
+
+.submit-btn {
+    background-color: #ff4d4f;
+    color: #fff;
+}

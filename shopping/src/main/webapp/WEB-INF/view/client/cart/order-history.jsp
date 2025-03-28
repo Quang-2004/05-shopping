@@ -7,7 +7,7 @@
 
             <head>
                 <meta charset="utf-8">
-                <title>MultiShop - Detail product</title>
+                <title>MultiShop - Order history</title>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport">
                 <meta content="Free HTML Templates" name="keywords">
                 <meta content="Free HTML Templates" name="description">
@@ -43,7 +43,7 @@
                         <div class="col-12">
                             <nav class="breadcrumb bg-light mb-30">
                                 <a class="breadcrumb-item text-dark" href="/">Trang chủ</a>
-                                <span class="breadcrumb-item active">Chi tiết sản phẩm</span>
+                                <span class="breadcrumb-item active">Lịch sử mua hàng</span>
                             </nav>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                 </thead>
                                 <tbody class="align-middle">
                                     <c:forEach var="order" items="${orders}">
-                                        <tr>
+                                        <tr class="table-danger">
                                             <th scope="row">
                                                 <div class="align-middle">
                                                     <label>Order id = ${order.id}</label>
@@ -75,13 +75,11 @@
                                             </td>
                                             <td>
                                                 <div class="align-middle">
-                                                    <fmt:formatNumber type="number"
-                                                        value="${order.totalPrice}" /> đ
+                                                    <fmt:formatNumber type="number" value="${order.totalPrice}" /> đ
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="input-group quantity mt-4"
-                                                    style="width: 100px;">
+                                                <div class="input-group quantity mt-4" style="width: 100px;">
                                                 </div>
                                             </td>
                                             <td>
@@ -112,8 +110,8 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     <p>
-                                                        <fmt:formatNumber type="number"
-                                                            value="${orderDetail.price}" /> đ
+                                                        <fmt:formatNumber type="number" value="${orderDetail.price}" />
+                                                        đ
                                                     </p>
                                                 </td>
                                                 <td class="align-middle">
@@ -128,7 +126,30 @@
                                                         đ
                                                     </p>
                                                 </td>
-
+                                                <td>
+                                                    <form action="/product-review" method="get">
+                                                        <input type="hidden" name="productId"
+                                                            value="${orderDetail.product.id}">
+                                                        <input type="hidden" name="orderDetailId"
+                                                            value="${orderDetail.id}">
+                                                        <c:if test="${orderDetail.evaluated eq false}">
+                                                            <div class="align-items-center"
+                                                                style="margin-top: 20px !important;">
+                                                                <button
+                                                                    class="btn border-4 btn-outline-success px-4 py-3 rounded-pill">
+                                                                    Đánh giá</button>
+                                                            </div>
+                                                        </c:if>
+                                                    </form>
+                                                    <c:if test="${orderDetail.evaluated eq true}">
+                                                        <div class="align-items-center"
+                                                            style="margin-top: 20px !important;">
+                                                            <button
+                                                                class="btn border-4 btn-outline-success px-4 py-3 rounded-pill">
+                                                                Mua lại</button>
+                                                        </div>
+                                                    </c:if>
+                                                </td>
                                             </tr>
                                         </c:forEach>
                                     </c:forEach>
@@ -137,7 +158,7 @@
                         </div>
                     </div>
                 </div>
-    
+
 
                 <jsp:include page="../layout/footer.jsp" />
 
@@ -151,6 +172,8 @@
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
                 <script src="/client/lib/easing/easing.min.js"></script>
                 <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
                 <!-- Contact Javascript File -->
                 <script src="/client/mail/jqBootstrapValidation.min.js"></script>
