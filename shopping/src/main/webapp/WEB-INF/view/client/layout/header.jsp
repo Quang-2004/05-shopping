@@ -124,11 +124,11 @@
                                             </div>
                                             <a href="/cart" class="btn px-0 ml-3">
                                                 <i class="fas fa-shopping-cart fa-lg text-primary"></i>
-                                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">${sessionScope.sum}</span>
+                                                <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"  id="sumCart">${sessionScope.sum}</span>
                                             </a>
                                         </c:if>
                                         <c:if test="${empty sessionScope.email}">
-                                            <a class="mr-2 text-light" href="/login">Đăng nhập</a>
+                                            <a class="mr-2 text-light a-login" href="/login">Đăng nhập</a>
                                             <p class="text-light mx-2">|</p>
                                             <a class="ml-2 text-light" href="/register">Đăng ký</a>
                                         </c:if>

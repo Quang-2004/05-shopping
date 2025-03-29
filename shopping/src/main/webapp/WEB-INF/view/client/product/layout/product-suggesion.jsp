@@ -14,7 +14,8 @@
                                     <img class="img-fluid w-100" src="/images/product/${product.image}" alt="">
                                 </div>
                                 <div class="text-center py-4">
-                                    <a class="h6 text-decoration-none text-truncate" href="">${product.name}</a>
+                                    <div class="h6 text-decoration-none text-truncate product-name ml-3">
+                                        ${product.name}</div>
                                     <div class="d-flex align-items-center justify-content-center mt-2">
                                         <h5 class="product-price ml-3" style="color: rgb(234, 129, 23);">
                                             <fmt:formatNumber type="number" value="${product.price}" /> đ

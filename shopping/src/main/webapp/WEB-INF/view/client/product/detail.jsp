@@ -30,7 +30,11 @@
 
                 <!-- Customized Bootstrap Stylesheet -->
                 <link href="/client/css/style.css" rel="stylesheet">
-                
+
+                <meta name="_csrf" content="${_csrf.token}" />
+                <!-- default header is X-CSRF_TOKEN-->
+                <meta name="_csrf_header" content="${_csrf.headerName}" />
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" rel="stylesheet">
             </head>
 
             <body>
@@ -161,19 +165,19 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <form action="/add-product-to-cart" method="POST" modelAttribute="product">
+                                    <!-- <form action="/add-product-to-cart" method="POST" modelAttribute="product"> -->
                                         <!-- csrf token -->
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                         <input type="text" class="form-control d-none" value="${product.id}"
                                             name="id" />
                                         <input type="text" class="form-control d-none" id="cartDetails0.quantity"
                                             name="quantity" value="1" />
-                                        <button class="btn btn-primary px-3 m-lg-1">
+                                        <button data-product-id="${product.id}" class="btnAddToCart btn btn-primary px-3 m-lg-1">
                                             <i class="fa fa-shopping-cart mr-1"></i>Thêm vào giỏ hàng
                                         </button>
-                                    </form>
+                                    <!-- </form> -->
 
-                                    <button class="btn btn-primary px-3">Mua hàng ngay</button>
+                                    <button class="btn btn-primary px-3 mt-3">Mua hàng ngay</button>
                                 </div>
                                 <div class="d-flex pt-2">
                                     <strong class="text-dark mr-2">Share on:</strong>
@@ -200,7 +204,7 @@
                     <jsp:include page="layout/nav-tabs-detail.jsp" />
                     <!--END NAV TAB DESCRIPTION AND REVIEW-->
 
-                </div>
+                
                 </div>
                 <!-- Shop Detail End -->
 
@@ -233,6 +237,7 @@
 
                 <!-- Template Javascript -->
                 <script src="/client/js/main.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
                 <!-- JavaScript -->
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {

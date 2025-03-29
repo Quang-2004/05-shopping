@@ -41,13 +41,13 @@
 
 
                 <!-- Carousel Start -->
-                <jsp:include page="../layout/carousel.jsp" />
+                <jsp:include page="layout/carousel.jsp" />
                 <!-- Carousel End -->
 
 
 
                 <!-- Categories Start -->
-                <jsp:include page="../layout/categories.jsp" />
+                <jsp:include page="layout/categories.jsp" />
                 <!-- Categories End -->
 
 

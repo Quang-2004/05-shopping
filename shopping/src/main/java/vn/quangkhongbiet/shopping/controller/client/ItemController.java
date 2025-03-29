@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -84,46 +83,50 @@ public class ItemController {
 
     @GetMapping("/product/{id}")
     public String getDetailProductPage(
-        @PathVariable long id,
-        Model model) {
+            @PathVariable long id,
+            Model model) {
+        try {
+            Product product = this.productService.findById(id);
+            List<ImageDetail> imageDetails = this.imageDetailService.findByProduct(product);
+            List<Category> categories = this.categoryService.findAll();
+            // sản phẩm gợi ý
+            List<Product> productSuggestions = this.productService
+                    .findProductSuggestionWithSpec(product.getCategory().getName());
+            // all comment
+            List<Review> allComments = this.reviewService.findByProduct(product);
+            // filter rating 5
+            List<Review> reviews_rating_5 = this.reviewService.findByProductAndRating(product, 5);
+            // filter rating 4
+            List<Review> reviews_rating_4 = this.reviewService.findByProductAndRating(product, 4);
+            // filter rating 3
+            List<Review> reviews_rating_3 = this.reviewService.findByProductAndRating(product, 3);
+            // filter rating 2
+            List<Review> reviews_rating_2 = this.reviewService.findByProductAndRating(product, 2);
+            // filter rating 1
+            List<Review> reviews_rating_1 = this.reviewService.findByProductAndRating(product, 1);
 
-        Product product = this.productService.findById(id);
-        List<ImageDetail> imageDetails = this.imageDetailService.findByProduct(product);
-        List<Category> categories = this.categoryService.findAll();
-        // sản phẩm gợi ý
-        List<Product> productSuggestions = this.productService.findProductSuggestionWithSpec(product.getCategory().getName());
-        // all comment
-        List<Review> allComments = this.reviewService.findByProduct(product);
-        // filter rating 5
-        List<Review> reviews_rating_5 = this.reviewService.findByProductAndRating(product, 5);
-        // filter rating 4
-        List<Review> reviews_rating_4 = this.reviewService.findByProductAndRating(product, 4);
-        // filter rating 3
-        List<Review> reviews_rating_3 = this.reviewService.findByProductAndRating(product, 3);
-        // filter rating 2
-        List<Review> reviews_rating_2 = this.reviewService.findByProductAndRating(product, 2);
-        // filter rating 1
-        List<Review> reviews_rating_1 = this.reviewService.findByProductAndRating(product, 1);
+            model.addAttribute("product", product);
+            model.addAttribute("imageDetails", imageDetails);
+            model.addAttribute("categories", categories);
+            model.addAttribute("productSuggestions", productSuggestions);
+            model.addAttribute("reviews_rating_1", reviews_rating_1);
+            model.addAttribute("reviews_rating_2", reviews_rating_2);
+            model.addAttribute("reviews_rating_3", reviews_rating_3);
+            model.addAttribute("reviews_rating_4", reviews_rating_4);
+            model.addAttribute("reviews_rating_5", reviews_rating_5);
+            model.addAttribute("allComments", allComments);
 
-        model.addAttribute("product", product);
-        model.addAttribute("imageDetails", imageDetails);
-        model.addAttribute("categories", categories);
-        model.addAttribute("productSuggestions", productSuggestions);
-        model.addAttribute("reviews_rating_1", reviews_rating_1);
-        model.addAttribute("reviews_rating_2", reviews_rating_2);
-        model.addAttribute("reviews_rating_3", reviews_rating_3);
-        model.addAttribute("reviews_rating_4", reviews_rating_4);
-        model.addAttribute("reviews_rating_5", reviews_rating_5);
-        model.addAttribute("allComments", allComments);
-        
-        model.addAttribute("total_rating_5", reviews_rating_5.size());
-        model.addAttribute("total_rating_4", reviews_rating_4.size());
-        model.addAttribute("total_rating_3", reviews_rating_3.size());
-        model.addAttribute("total_rating_2", reviews_rating_2.size());
-        model.addAttribute("total_rating_1", reviews_rating_1.size());
-       
-        return "client/product/detail";
+            model.addAttribute("total_rating_5", reviews_rating_5.size());
+            model.addAttribute("total_rating_4", reviews_rating_4.size());
+            model.addAttribute("total_rating_3", reviews_rating_3.size());
+            model.addAttribute("total_rating_2", reviews_rating_2.size());
+            model.addAttribute("total_rating_1", reviews_rating_1.size());
 
+            return "client/product/detail";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @PostMapping("/add-product-to-cart")
@@ -227,7 +230,6 @@ public class ItemController {
         List<Order> orders = this.orderService.findOrderByUser(currentUser);
         List<Category> categories = this.categoryService.findAll();
 
-
         model.addAttribute("orders", orders);
         model.addAttribute("categories", categories);
         return "client/cart/order-history";
@@ -296,19 +298,20 @@ public class ItemController {
         model.addAttribute("totalPages", PageProducts.getTotalPages());
         model.addAttribute("queryString", qs);
         model.addAttribute("totalProducts", totalProducts);
-        model.addAttribute("search", productCriteriaDTO.getSearch() != null ? productCriteriaDTO.getSearch().get() : "");
+        model.addAttribute("search",
+                productCriteriaDTO.getSearch() != null ? productCriteriaDTO.getSearch().get() : "");
         return "client/product/products";
     }
 
     @GetMapping("/product-review")
     public String getRevewPage(
-        HttpServletRequest request,
-        @ModelAttribute("review") Review review,
-        @RequestParam("productId") long productId, 
-        @RequestParam("orderDetailId") long orderDetailId,
-        Model model) {
+            HttpServletRequest request,
+            @ModelAttribute("review") Review review,
+            @RequestParam("productId") long productId,
+            @RequestParam("orderDetailId") long orderDetailId,
+            Model model) {
         Product product = this.productService.findById(productId);
-       
+
         model.addAttribute("product", product);
         model.addAttribute("orderDetailId", orderDetailId);
         model.addAttribute("review", new Review());
@@ -317,34 +320,31 @@ public class ItemController {
 
     @PostMapping("/product-review")
     public String handleSaveReviewProduct(
-        HttpServletRequest request,
-        @ModelAttribute("review") Review review,
-        @RequestParam("productId") long productId,
-        @RequestParam("orderDetailId") long orderDetailId,
-        @RequestParam("imageReivew") MultipartFile fileImage,
-        @RequestParam("videoReview") MultipartFile fileVideo) {
+            HttpServletRequest request,
+            @ModelAttribute("review") Review review,
+            @RequestParam("productId") long productId,
+            @RequestParam("orderDetailId") long orderDetailId,
+            @RequestParam("imageReivew") MultipartFile fileImage,
+            @RequestParam("videoReview") MultipartFile fileVideo) {
 
-    
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
         User currentUser = this.userService.findByEmail(email);
 
         Product product = this.productService.findById(productId);
-        // tăng 1 đánh giá 
+        // tăng 1 đánh giá
         product.setTotalReview(product.getTotalReview() + 1);
         product.setTotalRating(product.getTotalRating() + review.getRating());
 
         review.setProduct(product);
         review.setUser(currentUser);
-    
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedTime = LocalDateTime.now().format(formatter);
         LocalDateTime currentTime = LocalDateTime.parse(formattedTime, formatter);
 
         OrderDetail orderDetail = this.orderDetailService.findById(orderDetailId);
         orderDetail.setEvaluated(true); // đã review product
-
-        
 
         // tạm thời chưa lưu ảnh và video review
         // đợi học rest api

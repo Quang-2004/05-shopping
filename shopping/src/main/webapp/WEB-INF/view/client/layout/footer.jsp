@@ -3,43 +3,36 @@
         <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
             <div class="row px-xl-5 pt-5">
                 <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                    <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-                    <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed
-                        dolor. Rebum tempor no vero est magna amet no</p>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
+                    <h5 class="text-secondary text-uppercase mb-4">LIÊN HỆ</h5>
+                    <p class="mb-4">Liên hệ thông qua fanpage MultiShop để biết thêm chi tiết</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>115 Tân chánh hiệp 18, phường tân chánh hiệp, Q12</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>quangkhongbiet@gmail.com</p>
                     <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <div class="row">
                         <div class="col-md-4 mb-5">
-                            <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
+                            <h5 class="text-secondary text-uppercase mb-4">VỀ CHÚNG TÔI</h5>
                             <div class="d-flex flex-column justify-content-start">
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our
-                                    Shop</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop
-                                    Detail</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping
-                                    Cart</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Giới thiệu công ty</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Quy chế hoạt động</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Dự án doanh nghiệp</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Tin tức khuyến mãi</a>
                                 <a class="text-secondary mb-2" href="#"><i
-                                        class="fa fa-angle-right mr-2"></i>Checkout</a>
-                                <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                                        class="fa fa-angle-right mr-2"></i>Tra cứu bảo hành</a>
+                                <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Câu hỏi thường gặp</a>
                             </div>
                         </div>
                         <div class="col-md-4 mb-5">
-                            <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
+                            <h5 class="text-secondary text-uppercase mb-4">CHÍNH SÁCH</h5>
                             <div class="d-flex flex-column justify-content-start">
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our
-                                    Shop</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop
-                                    Detail</a>
-                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping
-                                    Cart</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Chính sách bảo hành</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Chính sách đổi trả</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Chính sách bảo mật</a>
+                                <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Chính sách trả góp</a>
                                 <a class="text-secondary mb-2" href="#"><i
-                                        class="fa fa-angle-right mr-2"></i>Checkout</a>
-                                <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
+                                        class="fa fa-angle-right mr-2"></i>Chính sách giao hàng</a>
+                                <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Chính sách mạng di động</a>
                             </div>
                         </div>
                         <div class="col-md-4 mb-5">
