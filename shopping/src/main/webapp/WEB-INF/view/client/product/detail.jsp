@@ -177,7 +177,7 @@
                                         </button>
                                     <!-- </form> -->
 
-                                    <button class="btn btn-primary px-3 mt-3">Mua hàng ngay</button>
+                                    <button class="btn btn-primary px-3 ml-3">Mua hàng ngay</button>
                                 </div>
                                 <div class="d-flex pt-2">
                                     <strong class="text-dark mr-2">Share on:</strong>
