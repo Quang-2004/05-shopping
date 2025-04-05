@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import jakarta.servlet.DispatcherType;
@@ -20,71 +21,89 @@ import vn.quangkhongbiet.shopping.service.CustomUserDetailsService;
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+        @Autowired
+        private CustomUserDetailsService userDetailsService;
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(encoder());
-        return authProvider;
-    }
+        @Bean
+        public DaoAuthenticationProvider authProvider() {
+                DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+                authProvider.setUserDetailsService(userDetailsService);
+                authProvider.setPasswordEncoder(encoder());
+                return authProvider;
+        }
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder encoder() {
+                return new BCryptPasswordEncoder();
+        }
 
-    @Bean
-    public SpringSessionRememberMeServices rememberMeServices() {
-        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        @Bean
+        public SpringSessionRememberMeServices rememberMeServices() {
+                SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
 
-        // optionally customize
-        rememberMeServices.setAlwaysRemember(true);
-        return rememberMeServices;
-    }
+                // optionally customize
+                rememberMeServices.setAlwaysRemember(true);
+                return rememberMeServices;
+        }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        // key FORWARD cho phép rederiect tới login
-                        // key INCLUDE cho phép 1 trang lấy dc thông tin ở các nơi khác
-                        // vd: home lấy list product
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE).permitAll()
-                        .requestMatchers("/", "/login", "/register", "/client/**", "/css/**", "/js/**", "/images/**",
-                                "/product/**", "/products/*", "/client/product/**")
-                        .permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/client/**").hasRole("USER")
-                        .anyRequest().authenticated())
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                        .authorizeHttpRequests(authorize -> authorize
+                                // key FORWARD cho phép rederiect tới login
+                                // key INCLUDE cho phép 1 trang lấy dc thông tin ở các nơi khác
+                                // vd: home lấy list product
+                                .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
+                                .permitAll()
+                                .requestMatchers("/", "/login", "/register", "/client/**", "/css/**",
+                                                "/js/**", "/images/**",
+                                                "/product/**", "/products/*", "/client/product/**")
+                                .permitAll()
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/client/**").hasRole("USER")
+                                .anyRequest().authenticated())
 
-                .sessionManagement((sessionManagement) -> sessionManagement
-                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // luôn tạo session mới
+                        .sessionManagement((sessionManagement) -> sessionManagement
+                                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS) // luôn tạo session
+                                                                                        // mới
 
-                        .invalidSessionUrl("/logout?expired")
-                        .maximumSessions(1) // giới hạn 1 tk login tối đa trên 1 thiết bị
-                        .maxSessionsPreventsLogin(false)) // neu có thêm1 người login vào thì ng sau đá ng trc
+                                .invalidSessionUrl("/logout?expired")
+                                .maximumSessions(1) // giới hạn 1 tk login tối đa trên 1 thiết bị
+                                .maxSessionsPreventsLogin(false)) // neu có thêm1 người login vào thì ng
+                                                                        // sau đá ng trc
                         // giống kiểu liên quân
                         // nếu là true thì ngc lại
-                        // .logout(logout->logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                        .logout(logout -> logout
+                                .logoutUrl("/logout") // URL để gọi logout
+                                .logoutSuccessUrl("/login?logout") // URL sau khi logout thành công
+                                .invalidateHttpSession(true) // Hủy toàn bộ session hiện tại
+                                .deleteCookies("JSESSIONID") // Xóa cookie chứa session ID
+                                .clearAuthentication(true) // Xóa thông tin xác thực khỏi
+                                                                // SecurityContext
+                                .permitAll())
 
-                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
+                        .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
 
-                .formLogin(formLogin -> formLogin
-                        .loginPage("/login")
-                        .failureUrl("/login?error")
-                        .successHandler(myAuthenticationSuccessHandler())
-                        .permitAll())
+                        .formLogin(formLogin -> formLogin
+                                .loginPage("/login")
+                                .failureUrl("/login?error")
+                                .successHandler(myAuthenticationSuccessHandler())
+                                .permitAll())
+                        .oauth2Login(oauth2 -> oauth2
+                                .loginPage("/login") // Dùng lại trang login nếu muốn
+                                .failureUrl("/login?error")
+                                .successHandler(myAuthenticationSuccessHandler()) // Dùng chung success
+                                                                                        // handler nếu muốn
+                        )
+                        .csrf(c -> c
+                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+                        .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
+                return http.build();
+        }
 
-                .exceptionHandling(ex -> ex.accessDeniedPage("/access-deny"));
-        return http.build();
-    }
-
-    @Bean
-    public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-        return new CustomSuccessHandler();
-    }
+        @Bean
+        public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+                return new CustomSuccessHandler();
+        }
 
 }

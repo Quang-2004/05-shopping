@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex align-items-center ml-auto">
-                                        <c:if test="${not empty sessionScope.email}">
+                                        <c:if test="${not empty sessionScope.fullName}">
                                             <div class="btn px-0">
                                                 <div class="dropdown my-auto">
                                                     <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
@@ -90,10 +90,17 @@
                                                                     src="/images/avatar/${sessionScope.avatar}" />
                                                             </c:if>
                                                             <c:if test="${empty sessionScope.avatar}">
-                                                                <img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
+                                                                <c:if test="${not empty sessionScope.oauth2Avatar}">
+                                                                    <img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
+                                                                    src="${oauth2Avatar}" />
+                                                                </c:if>
+                                                                <c:if test="${empty sessionScope.oauth2Avatar}">
+                                                                    <img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
                                                                     src="/images/avatar/defaut-avatar.jpg" />
+                                                                </c:if>
+                                                               
                                                             </c:if>
-    
+
                                                             <div class="text-center my-3">
                                                                 <c:out value="${sessionScope.fullName}" />
                                                             </div>
@@ -127,9 +134,9 @@
                                                 <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"  id="sumCart">${sessionScope.sum}</span>
                                             </a>
                                         </c:if>
-                                        <c:if test="${empty sessionScope.email}">
+                                        <c:if test="${empty sessionScope.fullName}">
                                             <a class="mr-2 text-light a-login" href="/login">Đăng nhập</a>
-                                            <p class="text-light mx-2">|</p>
+                                            <p class="text-light mt-3">|</p>
                                             <a class="ml-2 text-light" href="/register">Đăng ký</a>
                                         </c:if>
                                         

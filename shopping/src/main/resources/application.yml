@@ -1,0 +1,44 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/shopping
+    username: root
+    password: 27072004
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  session:
+    store-type: jdbc
+    timeout: 30m
+    jdbc:
+      initialize-schema: always
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Iv23li4VNnJpPIZAKZNY
+            client-secret: ad354f623a5a16b85a1701084d02c6db5069f457
+          google:
+            client-id: 53638391675-oj1onj01sg0d81pn9hfra80gffem9r6o.apps.googleusercontent.com
+            client-secret: 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
+          facebook:
+            client-id: 1164595288265413
+            client-secret: 21a8b01d0233b4636284325582c37157
+            scope:
+              - email
+              - public_profile
+              - user_birthday
+              - user_gender
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+
+server:
+  port: 8000
