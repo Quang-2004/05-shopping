@@ -20,8 +20,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRequestResolver {
 
     private OAuth2AuthorizationRequestResolver defaultResolver;
-    private final StringKeyGenerator secureKeyGenerator =
-        new Base64StringKeyGenerator(Base64.getUrlEncoder().withoutPadding(), 96);
+    private final StringKeyGenerator secureKeyGenerator = new Base64StringKeyGenerator(
+            Base64.getUrlEncoder().withoutPadding(), 96);
 
     public CustomAuthorizationRequestResolver(ClientRegistrationRepository repo, String authorizationRequestBaseUri) {
         defaultResolver = new DefaultOAuth2AuthorizationRequestResolver(repo, authorizationRequestBaseUri);
@@ -40,15 +40,25 @@ public class CustomAuthorizationRequestResolver implements OAuth2AuthorizationRe
     }
 
     private OAuth2AuthorizationRequest customizeAuthorizationRequest(OAuth2AuthorizationRequest req) {
-        if (req == null) { return null; }
+        if (req == null) {
+            return null;
+        }
+
+        // Get registrationId (google, github, facebook)
+        String registrationId = (String) req.getAttribute("registration_id");
 
         Map<String, Object> attributes = new HashMap<>(req.getAttributes());
         Map<String, Object> additionalParameters = new HashMap<>(req.getAdditionalParameters());
-        addPkceParameters(attributes, additionalParameters);
+
+        // Only add PKCE if it is Google
+        if ("google".equalsIgnoreCase(registrationId)) {
+                addPkceParameters(attributes, additionalParameters);
+        }
+
         return OAuth2AuthorizationRequest.from(req)
-            .attributes(attributes)
-            .additionalParameters(additionalParameters)
-            .build();
+                .attributes(attributes)
+                .additionalParameters(additionalParameters)
+                .build();
     }
 
     private void addPkceParameters(Map<String, Object> attributes, Map<String, Object> additionalParameters) {
