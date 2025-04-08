@@ -24,21 +24,22 @@ spring:
           github:
             client-id: ${GITHUB_CLIENT_ID}
             client-secret: ${GITHUB_CLIENT_SECRET}
+
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+
           facebook:
             client-id: ${FACEBOOK_CLIENT_ID}
             client-secret: ${FACEBOOK_CLIENT_SECRET}
-            scope:
-              - email
-              - public_profile
-              - user_birthday
-              - user_gender
+        
 
 logging:
   level:
-    org.springframework.web: DEBUG
+    org:
+      springframework:
+        web:
+          client: DEBUG
 
 server:
   port: 8000

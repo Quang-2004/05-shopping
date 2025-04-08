@@ -1,4 +1,4 @@
-package vn.quangkhongbiet.shopping.service;
+package vn.quangkhongbiet.shopping.service.custom;
 
 import java.util.Collections;
 
