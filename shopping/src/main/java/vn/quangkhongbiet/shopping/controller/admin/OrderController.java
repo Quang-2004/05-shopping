@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import vn.quangkhongbiet.shopping.service.OrderService;
 
 
 @Controller
+@PreAuthorize("hasRole('ADMIN')")
 public class OrderController {
 
     private final OrderService orderService;

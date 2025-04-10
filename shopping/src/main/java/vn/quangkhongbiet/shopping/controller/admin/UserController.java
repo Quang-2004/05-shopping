@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
+@PreAuthorize("hasRole('ADMIN')")
 public class UserController {
 
     private final UserService userService;
@@ -72,9 +74,9 @@ public class UserController {
         return "admin/user/show";
     }
 
-    @GetMapping("/admin/user/{id}")
-    public String getUserDetailPage(@PathVariable long id, Model model) {
-        User user = this.userService.findById(id);
+    @GetMapping("/admin/user/{uuid}")
+    public String getUserDetailPage(@PathVariable String uuid, Model model) {
+        User user = this.userService.findByUuid(uuid);
         model.addAttribute("user", user);
         return "admin/user/detail";
     }
@@ -123,9 +125,9 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/user/update/{id}")
-    public String getUpdateUser(Model model, @PathVariable long id) {
-        User user = this.userService.findById(id);
+    @GetMapping("/admin/user/update/{uuid}")
+    public String getUpdateUser(Model model, @PathVariable String uuid) {
+        User user = this.userService.findByUuid(uuid);
         model.addAttribute("updateUser", user);
         return "admin/user/update";
     }
@@ -171,10 +173,10 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @GetMapping("/admin/user/delete/{id}")
-    public String getDeleteUserPage(Model model, @PathVariable long id) {
+    @GetMapping("/admin/user/delete/{uuid}")
+    public String getDeleteUserPage(Model model, @PathVariable String uuid) {
         model.addAttribute("user", new User());
-        model.addAttribute("id", id);
+        model.addAttribute("id", this.userService.findByUuid(uuid).getId());
         return "admin/user/delete";
     }
 

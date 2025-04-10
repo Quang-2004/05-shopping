@@ -11,9 +11,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "reviews")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,65 +41,5 @@ public class Review implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Review() {
-    }
-
-    public Review(long id, long rating, String comment, LocalDateTime postingDate, User user, Product product) {
-        this.id = id;
-        this.rating = rating;
-        this.comment = comment;
-        this.postingDate = postingDate;
-        this.user = user;
-        this.product = product;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getRating() {
-        return rating;
-    }
-
-    public void setRating(long rating) {
-        this.rating = rating;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
-    public LocalDateTime getPostingDate() {
-        return postingDate;
-    }
-
-    public void setPostingDate(LocalDateTime postingDate) {
-        this.postingDate = postingDate;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-
+   
 }

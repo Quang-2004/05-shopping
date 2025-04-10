@@ -81,50 +81,60 @@ public class ItemController {
         this.orderDetailService = orderDetailService;
     }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/product/{slugAndId}")
     public String getDetailProductPage(
-            @PathVariable long id,
+            @PathVariable String slugAndId,
             Model model) {
+
+        String[] parts = slugAndId.split("-");
+        String idStr = parts[parts.length - 1];
+
         try {
-            Product product = this.productService.findById(id);
-            List<ImageDetail> imageDetails = this.imageDetailService.findByProduct(product);
-            List<Category> categories = this.categoryService.findAll();
-            // sản phẩm gợi ý
-            List<Product> productSuggestions = this.productService
-                    .findProductSuggestionWithSpec(product.getCategory().getName());
-            // all comment
-            List<Review> allComments = this.reviewService.findByProduct(product);
-            // filter rating 5
-            List<Review> reviews_rating_5 = this.reviewService.findByProductAndRating(product, 5);
-            // filter rating 4
-            List<Review> reviews_rating_4 = this.reviewService.findByProductAndRating(product, 4);
-            // filter rating 3
-            List<Review> reviews_rating_3 = this.reviewService.findByProductAndRating(product, 3);
-            // filter rating 2
-            List<Review> reviews_rating_2 = this.reviewService.findByProductAndRating(product, 2);
-            // filter rating 1
-            List<Review> reviews_rating_1 = this.reviewService.findByProductAndRating(product, 1);
+            long id = Integer.parseInt(idStr);
+            try {
+                Product product = this.productService.findById(id);
+                List<ImageDetail> imageDetails = this.imageDetailService.findByProduct(product);
+                List<Category> categories = this.categoryService.findAll();
+                // sản phẩm gợi ý
+                List<Product> productSuggestions = this.productService
+                        .findProductSuggestionWithSpec(product.getCategory().getName());
+                // all comment
+                List<Review> allComments = this.reviewService.findByProduct(product);
+                // filter rating 5
+                List<Review> reviews_rating_5 = this.reviewService.findByProductAndRating(product, 5);
+                // filter rating 4
+                List<Review> reviews_rating_4 = this.reviewService.findByProductAndRating(product, 4);
+                // filter rating 3
+                List<Review> reviews_rating_3 = this.reviewService.findByProductAndRating(product, 3);
+                // filter rating 2
+                List<Review> reviews_rating_2 = this.reviewService.findByProductAndRating(product, 2);
+                // filter rating 1
+                List<Review> reviews_rating_1 = this.reviewService.findByProductAndRating(product, 1);
 
-            model.addAttribute("product", product);
-            model.addAttribute("imageDetails", imageDetails);
-            model.addAttribute("categories", categories);
-            model.addAttribute("productSuggestions", productSuggestions);
-            model.addAttribute("reviews_rating_1", reviews_rating_1);
-            model.addAttribute("reviews_rating_2", reviews_rating_2);
-            model.addAttribute("reviews_rating_3", reviews_rating_3);
-            model.addAttribute("reviews_rating_4", reviews_rating_4);
-            model.addAttribute("reviews_rating_5", reviews_rating_5);
-            model.addAttribute("allComments", allComments);
+                model.addAttribute("product", product);
+                model.addAttribute("imageDetails", imageDetails);
+                model.addAttribute("categories", categories);
+                model.addAttribute("productSuggestions", productSuggestions);
+                model.addAttribute("reviews_rating_1", reviews_rating_1);
+                model.addAttribute("reviews_rating_2", reviews_rating_2);
+                model.addAttribute("reviews_rating_3", reviews_rating_3);
+                model.addAttribute("reviews_rating_4", reviews_rating_4);
+                model.addAttribute("reviews_rating_5", reviews_rating_5);
+                model.addAttribute("allComments", allComments);
 
-            model.addAttribute("total_rating_5", reviews_rating_5.size());
-            model.addAttribute("total_rating_4", reviews_rating_4.size());
-            model.addAttribute("total_rating_3", reviews_rating_3.size());
-            model.addAttribute("total_rating_2", reviews_rating_2.size());
-            model.addAttribute("total_rating_1", reviews_rating_1.size());
+                model.addAttribute("total_rating_5", reviews_rating_5.size());
+                model.addAttribute("total_rating_4", reviews_rating_4.size());
+                model.addAttribute("total_rating_3", reviews_rating_3.size());
+                model.addAttribute("total_rating_2", reviews_rating_2.size());
+                model.addAttribute("total_rating_1", reviews_rating_1.size());
 
-            return "client/product/detail";
-        } catch (Exception e) {
-            e.printStackTrace();
+                return "client/product/detail";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (NumberFormatException e) {
+            return "client/error/404";
         }
         return "";
     }

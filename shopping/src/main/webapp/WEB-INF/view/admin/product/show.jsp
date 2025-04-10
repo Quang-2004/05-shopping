@@ -68,11 +68,11 @@
                                                             </td>
                                                             <td>${product.getFactory()}</td>
                                                             <td>
-                                                                <a href="/admin/product/${product.getId()}"
+                                                                <a href="/admin/product/${product.slug}-${product.getId()}"
                                                                     class="btn btn-success">View</a>
-                                                                <a href="/admin/product/update/${product.getId()}"
+                                                                <a href="/admin/product/update/${product.slug}-${product.getId()}"
                                                                     class="btn btn-warning">Update</a>
-                                                                <a href="/admin/product/delete/${product.getId()}"
+                                                                <a href="/admin/product/delete/${product.slug}-${product.getId()}"
                                                                     class="btn btn-danger">Delete</a>
                                                             </td>
                                                         </tr>

@@ -49,4 +49,8 @@ public class UserService {
         user.setPassword(registerDTO.getPassword());
         return user;
     }
+
+    public User findByUuid(String uuid){
+        return this.userRepository.findByUuid(uuid);
+    }
 }

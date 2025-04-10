@@ -44,7 +44,6 @@
                 <jsp:include page="layout/carousel.jsp" />
                 <!-- Carousel End -->
 
-
                 <!-- Products Start -->
                 <div class="container-fluid pt-5 pb-3">
                     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
@@ -56,7 +55,7 @@
                             <div class="col pb-1">
                                 <div class="product-item bg-light mb-3">
                                     <div class="product-img position-relative overflow-hidden">
-                                        <a href="/product/${product.id}">
+                                        <a href="/product/${product.slug}-${product.id}">
                                             <img class="img-fluid w-100" src="/images/product/${product.image}" alt="">
                                         </a>
                                     </div>

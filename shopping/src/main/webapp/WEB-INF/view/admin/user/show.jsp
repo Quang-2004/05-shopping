@@ -61,11 +61,11 @@
                                                         <td>${user.getFullName()}</td>
                                                         <td>${user.getRole().getName()}</td>
                                                         <td>
-                                                            <a href="/admin/user/${user.getId()}"
+                                                            <a href="/admin/user/${user.uuid}"
                                                                 class="btn btn-success">View</a>
-                                                            <a href="/admin/user/update/${user.getId()}"
+                                                            <a href="/admin/user/update/${user.uuid}"
                                                                 class="btn btn-warning">Update</a>
-                                                            <a href="/admin/user/delete/${user.getId()}"
+                                                            <a href="/admin/user/delete/${user.uuid}"
                                                                 class="btn btn-danger">Delete</a>
                                                         </td>
                                                     </tr>

@@ -10,9 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "image_detail")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ImageDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,33 +29,6 @@ public class ImageDetail implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public ImageDetail() {
-    }
-
-    public ImageDetail(long id, String imageProduct, Product product) {
-        this.id = id;
-        this.imageProduct = imageProduct;
-        this.product = product;
-    }
-    public long getId() {
-        return id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
-    public String getImageProduct() {
-        return imageProduct;
-    }
-    public void setImageProduct(String imageProduct) {
-        this.imageProduct = imageProduct;
-    }
-    public Product getProduct() {
-        return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     
 }

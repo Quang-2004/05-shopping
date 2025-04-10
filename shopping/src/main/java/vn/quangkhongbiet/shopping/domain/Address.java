@@ -13,9 +13,15 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "addresses")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,77 +46,6 @@ public class Address implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
-
-
-    public Address() {
-    }
-
-    public Address(long id, boolean defaultAddress, String receiverAddress, String receiverName, String receiverPhone,
-            String typeAddress, User user) {
-        this.id = id;
-        this.defaultAddress = defaultAddress;
-        this.receiverAddress = receiverAddress;
-        this.receiverName = receiverName;
-        this.receiverPhone = receiverPhone;
-        this.typeAddress = typeAddress;
-        this.user = user;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public boolean isDefaultAddress() {
-        return defaultAddress;
-    }
-
-    public void setDefaultAddress(boolean defaultAddress) {
-        this.defaultAddress = defaultAddress;
-    }
-
-    public String getReceiverAddress() {
-        return receiverAddress;
-    }
-
-    public void setReceiverAddress(String receiverAddress) {
-        this.receiverAddress = receiverAddress;
-    }
-
-    public String getReceiverName() {
-        return receiverName;
-    }
-
-    public void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public String getReceiverPhone() {
-        return receiverPhone;
-    }
-
-    public void setReceiverPhone(String receiverPhone) {
-        this.receiverPhone = receiverPhone;
-    }
-
-    public String getTypeAddress() {
-        return typeAddress;
-    }
-
-    public void setTypeAddress(String typeAddress) {
-        this.typeAddress = typeAddress;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     
 }

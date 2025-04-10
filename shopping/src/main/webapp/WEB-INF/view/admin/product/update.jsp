@@ -55,7 +55,7 @@
                                     <div class="mb-3 col-6">
                                         <label class="form-label">Add image detail product: </label>
                                         <button type="button" class="btn btn-primary"><a
-                                            href="/admin/product/add-image-detail/${updateProduct.id}" class="myLink">Add</a></button>
+                                            href="/admin/product/add-image-detail/${updateProduct.slug}-${updateProduct.id}" class="myLink">Add</a></button>
                                     </div>
                                     <form:form action="/admin/product/update" method="POST"
                                         modelAttribute="updateProduct" enctype="multipart/form-data">

@@ -10,9 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "order_detail")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,67 +36,5 @@ public class OrderDetail implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public OrderDetail() {
-    }
-
-    public OrderDetail(long id, long price, long quantity, Order order, Product product,boolean evaluated) {
-        this.id = id;
-        this.price = price;
-        this.quantity = quantity;
-        this.order = order;
-        this.product = product;
-        this.evaluated = evaluated;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public void setPrice(long price) {
-        this.price = price;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public boolean isEvaluated() {
-        return evaluated;
-    }
-
-    public void setEvaluated(boolean evaluated) {
-        this.evaluated = evaluated;
-    }
-    
-    
 
 }
