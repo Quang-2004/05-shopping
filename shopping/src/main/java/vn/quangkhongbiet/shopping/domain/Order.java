@@ -1,6 +1,7 @@
 package vn.quangkhongbiet.shopping.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,6 +30,8 @@ public class Order implements Serializable {
     
     private long totalPrice;
     private String status;
+
+    private LocalDateTime orderDate;
 
     // userId
     @ManyToOne(fetch = FetchType.EAGER)

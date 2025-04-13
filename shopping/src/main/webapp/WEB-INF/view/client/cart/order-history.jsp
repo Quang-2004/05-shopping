@@ -68,7 +68,7 @@
                                         <tr class="table-danger">
                                             <th scope="row">
                                                 <div class="align-middle">
-                                                    <label>Order id = ${order.id}</label>
+                                                    <label>Ngày đặt hàng: ${dateTimeConverter.toString(order.orderDate)}</label>
                                                 </div>
                                             </th>
                                             <td>
@@ -103,7 +103,7 @@
                                                 </td>
                                                 <td class="align-middle">
                                                     <p>
-                                                        <a href="/product/${orderDetail.product.id}">
+                                                        <a href="/product/${orderDetail.product.slug}-${orderDetail.product.id}">
                                                             ${orderDetail.product.name}
                                                         </a>
                                                     </p>

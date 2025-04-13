@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import vn.quangkhongbiet.shopping.converters.LocalDateTimeToStringConverter;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Cart;
 import vn.quangkhongbiet.shopping.domain.CartDetail;
@@ -107,6 +108,8 @@ public class ItemController {
                 model.addAttribute("total_rating_3", reviews_rating_3.size());
                 model.addAttribute("total_rating_2", reviews_rating_2.size());
                 model.addAttribute("total_rating_1", reviews_rating_1.size());
+
+                model.addAttribute("dateTimeConverter", new LocalDateTimeToStringConverter());
 
                 return "client/product/detail";
             } catch (Exception e) {
@@ -223,6 +226,7 @@ public class ItemController {
 
         model.addAttribute("orders", orders);
         model.addAttribute("categories", categories);
+        model.addAttribute("dateTimeConverter", new LocalDateTimeToStringConverter());
         return "client/cart/order-history";
     }
 

@@ -90,7 +90,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
@@ -120,7 +120,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
@@ -148,7 +148,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
@@ -176,7 +176,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
@@ -204,7 +204,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
@@ -232,7 +232,7 @@
                                                             class="img-fluid mr-3 mt-1" style="width: 45px;">
                                                         <div class="media-body">
                                                             <h6>${review.user.fullName}<small> -
-                                                                    <i>${review.postingDate}</i></small></h6>
+                                                                    <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
                                                                 <i class="fas fa-star"></i>
                                                                 <i class="fas fa-star"></i>
