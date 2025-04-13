@@ -79,7 +79,7 @@ public class Product implements Serializable {
     private Category category;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    private List<ImageDetail> ImageDetails;
+    private List<ImageDetail> imageDetails;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private List<Review> reviews;

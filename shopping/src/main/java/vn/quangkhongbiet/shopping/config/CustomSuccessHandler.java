@@ -131,6 +131,9 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             Role role = roleService.findByName("USER");
             newUser.setRole(role);
             newUser.setPassword(passwordEncoder.encode(dummyPassword));
+            newUser.setVerified(true);
+
+
             userService.save(newUser);
             user = newUser;
         }

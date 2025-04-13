@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Cart;
 import vn.quangkhongbiet.shopping.domain.CartDetail;
@@ -44,6 +45,7 @@ import vn.quangkhongbiet.shopping.service.ReviewService;
 import vn.quangkhongbiet.shopping.service.UserService;
 
 @Controller
+@RequiredArgsConstructor
 public class ItemController {
 
     private final ProductService productService;
@@ -57,29 +59,7 @@ public class ItemController {
     private final ReviewService reviewService;
     private final OrderDetailService orderDetailService;
 
-    public ItemController(
-            ProductService productService,
-            ImageDetailService imageDetailService,
-            UserService userService,
-            CartService cartService,
-            CartDetailService cartDetailService,
-            AddressService addressService,
-            OrderService orderService,
-            CategoryService categoryService,
-            ReviewService reviewService,
-            OrderDetailService orderDetailService) {
 
-        this.productService = productService;
-        this.imageDetailService = imageDetailService;
-        this.userService = userService;
-        this.cartService = cartService;
-        this.cartDetailService = cartDetailService;
-        this.addressService = addressService;
-        this.orderService = orderService;
-        this.categoryService = categoryService;
-        this.reviewService = reviewService;
-        this.orderDetailService = orderDetailService;
-    }
 
     @GetMapping("/product/{slugAndId}")
     public String getDetailProductPage(
@@ -147,9 +127,10 @@ public class ItemController {
 
         HttpSession session = request.getSession(false);
         String email = (String) session.getAttribute("email");
+        Product product = this.productService.findById(id);
 
         this.productService.handleAddProductToCart(email, id, session, quantity);
-        return "redirect:/product/" + id;
+        return "redirect:/product/" + product.getSlug() + "-" + id;
     }
 
     @GetMapping("/cart")

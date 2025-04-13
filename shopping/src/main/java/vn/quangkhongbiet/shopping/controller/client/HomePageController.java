@@ -20,18 +20,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Category;
 import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.domain.User;
+import vn.quangkhongbiet.shopping.domain.DTO.OTPRequest;
 import vn.quangkhongbiet.shopping.domain.DTO.RegisterDTO;
 import vn.quangkhongbiet.shopping.service.AddressService;
 import vn.quangkhongbiet.shopping.service.CategoryService;
 import vn.quangkhongbiet.shopping.service.ProductService;
 import vn.quangkhongbiet.shopping.service.RoleService;
 import vn.quangkhongbiet.shopping.service.UserService;
+import vn.quangkhongbiet.shopping.service.notification.EmailService;
+import vn.quangkhongbiet.shopping.service.notification.OTPService;
 
 @Controller
+@RequiredArgsConstructor // Constructor injection for all required dependencies
 public class HomePageController {
 
     private final ProductService productService;
@@ -40,38 +45,23 @@ public class HomePageController {
     private final RoleService roleService;
     private final AddressService addressService;
     private final CategoryService categoryService;
-
-    public HomePageController(
-            ProductService productService,
-            UserService userService,
-            PasswordEncoder passwordEncoder,
-            RoleService roleService,
-            AddressService addressService,
-            CategoryService categoryService) {
-
-        this.productService = productService;
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-        this.roleService = roleService;
-        this.addressService = addressService;
-        this.categoryService = categoryService;
-    }
+    private final EmailService emailService;
+    private final OTPService otpService;
 
     @GetMapping("/")
     public String getHomePage(
-        Model model,
-        @RequestParam("page")  Optional<String> pageOptional) {
+            Model model,
+            @RequestParam("page") Optional<String> pageOptional) {
 
         int page = 1;
         try {
-            if(pageOptional.isPresent()){
+            if (pageOptional.isPresent()) {
                 page = Integer.parseInt(pageOptional.get());
-            }
-            else{
+            } else {
                 // page = 1
             }
         } catch (Exception e) {
-            // TODO: handle exception
+
         }
 
         Pageable pageable = PageRequest.of(page - 1, 10);
@@ -79,7 +69,6 @@ public class HomePageController {
         List<Product> products = PageProducts.getContent();
 
         List<Category> categories = this.categoryService.findAll();
-        
 
         model.addAttribute("products", products);
         model.addAttribute("currentPage", page);
@@ -112,9 +101,22 @@ public class HomePageController {
             BindingResult newUserBindingResult,
             HttpServletRequest request) {
 
+        HttpSession session = request.getSession(false);
         List<FieldError> errors = newUserBindingResult.getFieldErrors();
         for (FieldError error : errors) {
             System.out.println(">>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+
+            if (error.getDefaultMessage().equals("Email already exists!")) {
+                if (!this.userService.findByEmail(registerUser.getEmail()).isVerified()) { // check if email is verified
+                    // if email is not verified, send OTP again
+                    // send OTP to email
+                    String otp = otpService.generateOTP(registerUser.getEmail());
+                    emailService.sendOTPEmail(registerUser.getEmail(), otp);
+
+                    session.setAttribute("registerEmail", registerUser.getEmail());
+                    return "redirect:/account_verifications";
+                }
+            }
         }
 
         // validate
@@ -129,17 +131,55 @@ public class HomePageController {
         // save
         this.userService.save(user);
 
+        // send OTP to email
+        String otp = otpService.generateOTP(registerUser.getEmail());
+        emailService.sendOTPEmail(registerUser.getEmail(), otp);
+
         // add information in session
-        HttpSession session = request.getSession(false);
+        long sum = user.getCart() == null ? 0 : user.getCart().getSum();
         session.setAttribute("fullName", user.getFullName());
         session.setAttribute("avatar", user.getAvatar());
         session.setAttribute("id", user.getId());
         session.setAttribute("email", user.getEmail());
-
-        long sum = user.getCart() == null ? 0 : user.getCart().getSum();
         session.setAttribute("sum", sum);
+        session.setAttribute("registerEmail", user.getEmail());
+        return "redirect:/account_verifications";
+    }
 
-        return "redirect:/";
+    @GetMapping("/account_verifications")
+    public String getVerifyOtpPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        OTPRequest otpRequest = new OTPRequest();
+        otpRequest.setEmail((String) session.getAttribute("registerEmail"));
+
+        model.addAttribute("otpRequest", otpRequest);
+        return "client/auth/verify-otp";
+    }
+
+    @PostMapping("/account_verifications")
+    public String handleVerifyOtp(@ModelAttribute("otpRequest") @Valid OTPRequest otpRequest,
+            BindingResult bindingResult, Model model, HttpServletRequest request) {
+
+        List<FieldError> errors = bindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(">>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
+        }
+        // validate
+        if (bindingResult.hasErrors()) {
+            return "client/auth/verify-otp";
+        }
+        boolean isValid = otpService.verifyOTP(otpRequest.getEmail(), otpRequest.getOtp());
+
+        if (!isValid) {
+            model.addAttribute("error", "OTP không hợp lệ hoặc đã hết hạn.");
+            return "client/auth/verify-otp";
+        }
+
+        // delete registerEmail in session
+        HttpSession session = request.getSession(false);
+        session.removeAttribute("registerEmail");
+
+        return "rediect:/";
     }
 
     @GetMapping("/access-deny")
@@ -202,10 +242,9 @@ public class HomePageController {
         model.addAttribute("addresses", addresses);
 
         String redirectTo = (String) session.getAttribute("redirectTo");
-        if(redirectTo.equals("/checkout")){
+        if (redirectTo.equals("/checkout")) {
             return "redirect:" + redirectTo;
-        }
-        else if(redirectTo.equals("/account/change-address")){
+        } else if (redirectTo.equals("/account/change-address")) {
             return "redirect:" + redirectTo;
         }
         return "redirect:/checkout";
@@ -220,9 +259,9 @@ public class HomePageController {
         Address myAddress = this.addressService.findByDefaultAddressAndUser(true, currentUser);
         List<Address> addresses = this.addressService.findByUser(currentUser);
 
-        // add redirect after add-address 
+        // add redirect after add-address
         session.setAttribute("redirectTo", "/account/change-address");
-        
+
         model.addAttribute("addresses", addresses);
         model.addAttribute("myAddress", myAddress);
         return "client/my-account/change-address";
@@ -255,12 +294,12 @@ public class HomePageController {
 
     @PostMapping("/account/update-address")
     public String handleUpdateAddress(
-        Model model,
+            Model model,
             @ModelAttribute("updateAddress") @Valid Address updateAddress,
             BindingResult newAddressBindingResult,
             HttpServletRequest request) {
-        
-                List<FieldError> errors = newAddressBindingResult.getFieldErrors();
+
+        List<FieldError> errors = newAddressBindingResult.getFieldErrors();
         for (FieldError error : errors) {
             System.out.println(">>>>>>>>>>" + error.getField() + " - " + error.getDefaultMessage());
         }
@@ -271,7 +310,7 @@ public class HomePageController {
         }
 
         Optional<Address> OpAddress = Optional.ofNullable(this.addressService.findById(updateAddress.getId()));
-        if(OpAddress.isPresent()){
+        if (OpAddress.isPresent()) {
             Address currentAddress = OpAddress.get();
             currentAddress.setDefaultAddress(updateAddress.isDefaultAddress());
             currentAddress.setReceiverAddress(updateAddress.getReceiverAddress());
@@ -290,6 +329,5 @@ public class HomePageController {
     public String getMyProfilePage() {
         return "client/my-account/my-profile";
     }
-    
 
 }

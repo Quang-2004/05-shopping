@@ -2,12 +2,12 @@ package vn.quangkhongbiet.shopping;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
 @SpringBootApplication
-// @SpringBootApplication(exclude =
-// org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
+@EnableAsync 
 public class ShoppingApplication {
 
 	public static void main(String[] args) {

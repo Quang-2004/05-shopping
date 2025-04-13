@@ -58,8 +58,8 @@
                     <div class="col-lg-6">
                         <i class="bi bi-exclamation-triangle display-1 text-secondary"></i>
                         <h1 class="display-1">404</h1>
-                        <h1 class="mb-4">Page Not Found</h1>
-                        <p class="mb-4">We’re sorry, the page you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
+                        <h1 class="mb-4">Trang không tồn tại</h1>
+                        <p class="mb-4">Rất tiếc, trang bạn đang tìm kiếm không tồn tại trên trang web của chúng tôi! Có thể bạn hãy vào trang chủ của chúng tôi hoặc thử sử dụng chức năng tìm kiếm?</p>
                         <button class="btn border-4 btn-outline-warning px-4 py-3 rounded-pill"><a href="/" >Go Back To Home</a></button>
                     </div>
                 </div>
@@ -92,25 +92,7 @@
 
                 <!-- Template Javascript -->
                 <script src="/client/js/main.js"></script>
-
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
-                <script>
-                    // Toggle dropdown menu khi click
-                    const avatar = document.querySelector('.starlitCircle');
-                    const dropdownMenu = document.querySelector('#dropdownMenu');
-
-                    avatar.addEventListener('click', () => {
-                        dropdownMenu.classList.toggle('active');
-                    });
-
-                    // Đóng dropdown khi click ra ngoài
-                    document.addEventListener('click', (e) => {
-                        if (!avatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
-                            dropdownMenu.classList.remove('active');
-                        }
-                    });
-                </script>
+                
             </body>
 
             </html>

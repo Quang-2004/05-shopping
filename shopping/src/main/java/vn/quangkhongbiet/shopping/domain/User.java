@@ -1,6 +1,7 @@
 package vn.quangkhongbiet.shopping.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,6 +54,12 @@ public class User implements Serializable {
     private String password;
 
     private String uuid = UUID.randomUUID().toString();
+
+    private String otp;
+
+    private LocalDateTime expiryTime;
+
+    private boolean verified;
     
     // role id
     @ManyToOne(fetch = FetchType.EAGER)

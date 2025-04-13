@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import lombok.RequiredArgsConstructor;
 import vn.quangkhongbiet.shopping.domain.Address;
 import vn.quangkhongbiet.shopping.domain.Order;
 import vn.quangkhongbiet.shopping.domain.OrderDetail;
@@ -25,6 +26,7 @@ import vn.quangkhongbiet.shopping.service.OrderService;
 
 
 @Controller
+@RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 public class OrderController {
 
@@ -32,12 +34,6 @@ public class OrderController {
     private final OrderDetailService orderDetailService;
     private final AddressService addressService;
     
-
-    public OrderController(OrderService orderService, OrderDetailService orderDetailService, AddressService addressService) {
-        this.orderService = orderService;
-        this.orderDetailService = orderDetailService;
-        this.addressService = addressService;
-    }
 
     @GetMapping("/admin/order")
     public String getOrderPage(Model model, @RequestParam("page")  Optional<String> pageOptional) {

@@ -62,7 +62,7 @@ public class SecurityConfiguration {
                                                 // vd: home lấy list product
                                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                                                 .permitAll()
-                                                .requestMatchers("/", "/login", "/register", "/client/**", "/css/**",
+                                                .requestMatchers("/", "/login", "/register","/account_verifications", "/client/**", "/css/**",
                                                                 "/js/**", "/images/**", "/error/**",
                                                                 "/product/**", "/products/*", "/client/product/**")
                                                 .permitAll()
@@ -84,7 +84,7 @@ public class SecurityConfiguration {
                                                 .logoutUrl("/logout") // URL để gọi logout
                                                 .logoutSuccessUrl("/login?logout") // URL sau khi logout thành công
                                                 .invalidateHttpSession(true) // Hủy toàn bộ session hiện tại
-                                                .deleteCookies("JSESSIONID") // Xóa cookie chứa session ID
+                                                .deleteCookies("JSESSIONID", "remember-me") // Xóa cookie chứa session ID
                                                 .clearAuthentication(true) // Xóa thông tin xác thực khỏi
                                                                            // SecurityContext
                                                 .permitAll())
@@ -116,6 +116,8 @@ public class SecurityConfiguration {
         public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
                 return new CustomSuccessHandler();
         }
+
+
 
 
 }

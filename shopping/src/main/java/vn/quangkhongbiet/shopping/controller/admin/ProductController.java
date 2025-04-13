@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import vn.quangkhongbiet.shopping.domain.ImageDetail;
 import vn.quangkhongbiet.shopping.domain.Product;
 import vn.quangkhongbiet.shopping.service.CategoryService;
@@ -29,24 +30,13 @@ import vn.quangkhongbiet.shopping.service.util.UrlSlugging;
 
 @Controller
 @PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
     private final UploadService uploadService;
     private final CategoryService categoryService;
     private final ImageDetailService imageDetailService;
-
-    public ProductController(
-            ProductService productService,
-            UploadService uploadService,
-            CategoryService categoryService,
-            ImageDetailService imageDetailService) {
-
-        this.productService = productService;
-        this.uploadService = uploadService;
-        this.categoryService = categoryService;
-        this.imageDetailService = imageDetailService;
-    }
 
     @GetMapping("/admin/product")
     public String getProductPage(Model model, @RequestParam("page") Optional<String> pageOptional) {

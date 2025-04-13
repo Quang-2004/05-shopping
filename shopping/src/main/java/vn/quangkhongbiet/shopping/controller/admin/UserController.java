@@ -24,13 +24,16 @@ import vn.quangkhongbiet.shopping.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
@@ -38,17 +41,6 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UploadService uploadService;
 
-    public UserController(
-            UserService userService,
-            RoleService roleService,
-            PasswordEncoder passwordEncoder,
-            UploadService uploadService) {
-
-        this.userService = userService;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-        this.uploadService = uploadService;
-    }
 
     @GetMapping("/admin/user")
     public String getUserPage(Model model, @RequestParam("page")  Optional<String> pageOptional) {
@@ -93,7 +85,8 @@ public class UserController {
             @ModelAttribute("newUser") @Valid User user,
             BindingResult newUserBindingResult,
             @RequestParam("avatarFile") MultipartFile file,
-            HttpServletRequest request) {
+            HttpServletRequest request,
+            RedirectAttributes redirectAttributes) {
 
          // get session
          HttpSession session = request.getSession(false);
@@ -121,7 +114,8 @@ public class UserController {
         }
 
         this.userService.save(user);
-
+        redirectAttributes.addFlashAttribute("toastMessage", "Thêm người dùng thành công!");
+        redirectAttributes.addFlashAttribute("toastType", "success");
         return "redirect:/admin/user";
     }
 

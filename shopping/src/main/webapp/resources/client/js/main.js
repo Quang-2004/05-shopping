@@ -28,7 +28,7 @@
         }
     });
     $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 300, 'easeInOutExpo');
+        $('html, body').animate({ scrollTop: 0 }, 300, 'easeInOutExpo');
         return false;
     });
 
@@ -252,7 +252,7 @@
             if (priceArr.length > 0) {
                 searchParams.set('price', priceArr.join(','));
             }
-            
+
 
             // Update the URL and reload the page
             window.location.href = currentUrl.toString();
@@ -282,7 +282,7 @@
     $('.btnAddToCart').click(function (event) {
         event.preventDefault();
 
-        if(!isLogin()){
+        if (!isLogin()) {
             $.toast({
                 heading: 'Lỗi thao tác',
                 text: 'Bạn cần đăng nhập tà khoản',
@@ -298,18 +298,18 @@
         const quantity = $("#cartDetails0\\.quantity").val();
         console.debug;
         console.log(productId);
-console.log(quantity);
+        console.log(quantity);
         $.ajax({
             url: `${window.location.origin}/api/add-product-to-cart`,
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(header, token);
             },
             type: "POST",
-            data: JSON.stringify({quantity: quantity, productId: productId}),
+            data: JSON.stringify({ quantity: quantity, productId: productId }),
             contentType: "application/json",
-            
 
-            success: function(response){
+
+            success: function (response) {
                 const sum = +response;
                 // update cart
                 $("#sumCart").text(sum)
@@ -318,9 +318,10 @@ console.log(quantity);
                     heading: 'Giỏ hàng',
                     text: 'Thêm sản phẩm vào giỏ hàng thành công',
                     position: 'top-right',
+                    icon: 'success',
                 })
             },
-            error: function (response){
+            error: function (response) {
                 alert("có lỗi xảy ra, check code đi mẹ")
                 console.log("error: ", response);
             }
@@ -336,7 +337,7 @@ console.log(quantity);
         }
         return true;
     }
-    
+
 
 })(jQuery);
 
