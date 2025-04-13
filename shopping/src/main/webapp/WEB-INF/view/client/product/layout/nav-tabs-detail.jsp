@@ -92,11 +92,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <div class="filled-stars" style="width: 0;"></div>
                                                             <p>${review.comment}</p>
@@ -122,11 +120,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <p>${review.comment}</p>
                                                         </div>
@@ -150,11 +146,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <p>${review.comment}</p>
                                                         </div>
@@ -178,11 +172,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <p>${review.comment}</p>
                                                         </div>
@@ -206,11 +198,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <p>${review.comment}</p>
                                                         </div>
@@ -234,11 +224,9 @@
                                                             <h6>${review.user.fullName}<small> -
                                                                     <i>${dateTimeConverter.toString(review.postingDate)}</i></small></h6>
                                                             <div class="text-primary mb-2">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
+                                                                <c:forEach begin="1" end="${review.rating}" varStatus="loop">
+                                                                    <i class="fas fa-star"></i>
+                                                                </c:forEach>
                                                             </div>
                                                             <p>${review.comment}</p>
                                                         </div>

@@ -261,7 +261,7 @@
     });
 
     // delete filter when can't not product
-    $('#btnDeleteFilter').click(function (event) {
+    $('.btnDeleteFilter').click(function (event) {
 
         const currentUrl = new URL(window.location.href);
         const searchParams = currentUrl.searchParams;

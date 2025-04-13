@@ -26,7 +26,7 @@
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
                         <input type="checkbox" class="custom-control-input" id="price-5"
                             value="2-trieu-den-2-trieu-500">
-                        <label class="custom-control-label" for="price-5">2- 2.5 triệu</label>
+                        <label class="custom-control-label" for="price-5">2 - 2.5 triệu</label>
                     </div>
                 </div>
                 <!-- Price End -->
@@ -82,8 +82,7 @@
                 <div class="d-flex justify-content-center my-4">
                     <button class="btn border-4 btn-outline-success px-4 py-3 rounded-pill w-50 mr-1" id="btnFilter">
                         Lọc sản phẩm</button>
-                    <button class="btn border-4 btn-outline-success px-4 py-3 rounded-pill w-50 ml-1"
-                        id="btnDeleteFilter">
+                    <button class="btn btnDeleteFilter border-4 btn-outline-success px-4 py-3 rounded-pill w-50 ml-1">
                         Xóa bộ lọc</button>
                 </div>
             </div>

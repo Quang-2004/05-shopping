@@ -104,8 +104,7 @@
                                                 <img src="/client/img/cant-find-product.png" alt="Can't find product"
                                                     style="width: 400px; height: 270px;"> <br>
                                                 Rất tiếc, chúng tôi không tìm thấy sản phẩm. <br> <br>
-                                                <button class="btn border-4 btn-outline-success px-4 py-3 rounded-pill"
-                                                    id="btnDeleteFilter">
+                                                <button class="btn btnDeleteFilter border-4 btn-outline-success px-4 py-3 rounded-pill">
                                                     Xóa bộ lọc</button>
                                             </div>
 
