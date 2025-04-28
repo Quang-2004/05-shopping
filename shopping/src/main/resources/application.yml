@@ -7,7 +7,7 @@ server:
     key-store-password: ${KEY_STORE_PASSWORD} 
     key-store-type: PKCS12
     key-alias: mysslkey
-
+  address: MultiShop.com
 spring:
   jpa:
     hibernate:
@@ -30,10 +30,9 @@ spring:
       max-file-size: 50MB
       max-request-size: 50MB
   session:
-    store-type: jdbc
-    timeout: 30m
     jdbc:
       initialize-schema: always
+    timeout: 30m
   security:
     oauth2:
       client:

@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -16,6 +17,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import jakarta.servlet.DispatcherType;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpSession;
 import vn.quangkhongbiet.shopping.service.custom.CustomAuthorizationRequestResolver;
 import vn.quangkhongbiet.shopping.service.custom.CustomUserDetailsService;
 
@@ -62,7 +65,8 @@ public class SecurityConfiguration {
                                                 // vd: home lấy list product
                                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                                                 .permitAll()
-                                                .requestMatchers("/", "/login", "/register","/account_verifications", "/client/**", "/css/**",
+                                                .requestMatchers("/", "/login", "/register", "/account_verifications",
+                                                                "/client/**", "/css/**",
                                                                 "/js/**", "/images/**", "/error/**",
                                                                 "/product/**", "/products", "/client/product/**")
                                                 .permitAll()
@@ -81,12 +85,36 @@ public class SecurityConfiguration {
                                 // giống kiểu liên quân
                                 // nếu là true thì ngc lại
                                 .logout(logout -> logout
-                                                .logoutUrl("/logout") // URL để gọi logout
-                                                .logoutSuccessUrl("/login?logout") // URL sau khi logout thành công
-                                                .invalidateHttpSession(true) // Hủy toàn bộ session hiện tại
-                                                .deleteCookies("JSESSIONID", "remember-me") // Xóa cookie chứa session ID
-                                                .clearAuthentication(true) // Xóa thông tin xác thực khỏi
-                                                                           // SecurityContext
+                                                .logoutUrl("/logout")
+                                                .logoutSuccessHandler((request, response, authentication) -> {
+                                                        // Xóa session nếu tồn tại
+                                                        HttpSession session = request.getSession(false);
+                                                        if (session != null) {
+                                                                session.invalidate();
+                                                        }
+
+                                                        // Xóa security context
+                                                        SecurityContextHolder.clearContext();
+
+                                                        // Xóa cookies thủ công
+                                                        Cookie[] cookies = request.getCookies();
+                                                        if (cookies != null) {
+                                                                for (Cookie cookie : cookies) {
+                                                                        if ("JSESSIONID".equals(cookie.getName())
+                                                                                        || "remember-me".equals(cookie
+                                                                                                        .getName())) {
+                                                                                cookie.setMaxAge(0);
+                                                                                cookie.setPath("/");
+                                                                                response.addCookie(cookie);
+                                                                        }
+                                                                }
+                                                        }
+
+                                                        // Redirect sau khi tất cả đã xong
+                                                        response.sendRedirect("/login?logout");
+                                                })
+                                                .invalidateHttpSession(true)
+                                                .deleteCookies("JSESSIONID", "remember-me")
                                                 .permitAll())
 
                                 .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
@@ -101,9 +129,11 @@ public class SecurityConfiguration {
                                                 .failureUrl("/login?error")
                                                 .successHandler(myAuthenticationSuccessHandler())
                                                 .authorizationEndpoint(authorization -> authorization
-                                                                .authorizationRequestResolver(new CustomAuthorizationRequestResolver(clientRegistrationRepository,
-                                                                DEFAULT_AUTHORIZATION_REQUEST_BASE_URI)))
-                                                                                                
+                                                                .authorizationRequestResolver(
+                                                                                new CustomAuthorizationRequestResolver(
+                                                                                                clientRegistrationRepository,
+                                                                                                DEFAULT_AUTHORIZATION_REQUEST_BASE_URI)))
+
                                 )
 
                                 .csrf(c -> c
@@ -116,8 +146,5 @@ public class SecurityConfiguration {
         public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
                 return new CustomSuccessHandler();
         }
-
-
-
 
 }

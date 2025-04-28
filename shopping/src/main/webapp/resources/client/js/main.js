@@ -238,7 +238,6 @@
             searchParams.delete('factory');
             searchParams.delete('price');
             searchParams.delete('search');
-            searchParams.delete('page');
             searchParams.delete('sort');
             searchParams.delete('categoryName');
 
